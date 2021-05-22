@@ -11,6 +11,257 @@
 		<link rel="stylesheet" type="text/css" href="css/all.css">
 
 		<title>STABCDMA</title>
+
+		<!-- Optional JavaScript -->
+	    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	    <script type="text/javascript" src="libs/jquery-3.5.1.min.js"></script>
+	    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+	    <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+
+		<script type="text/javascript" src="libs/three/three.js"></script>
+		<script type="text/javascript" src="libs/three/MTLLoader.js"></script>
+		<script type="text/javascript" src="libs/three/OBJLoader.js"></script>
+
+		<script type="text/javascript">
+			var scene;
+			var camera;
+			var renderer;
+			var controls;
+			var objectsWithCollision = [];
+			var clock;
+			var deltaTime;	
+			var keys = {};
+
+			var jugadores = [];
+
+			var isWorldReady = [ false, false ];
+
+			var rayCaster;
+
+			$(document).ready(function() {
+
+				rayCaster = new THREE.Raycaster();
+
+				setupScene();
+
+				camera.misRayos = [
+
+					new THREE.Vector3(0, 0, 2),
+					new THREE.Vector3(0, 0, -2),
+					new THREE.Vector3(2, 0, 0),
+					new THREE.Vector3(-2, 0, 0)
+
+				];
+
+				loadOBJWithMTL("game_assets/car1/", "car1.obj", "car1.mtl", (object) => {
+					object.name = "car1";
+					object.add(camera);
+					scene.add(object);
+
+					jugadores.push(object);
+
+					isWorldReady[0] = true;
+				});
+
+				loadOBJWithMTL("game_assets/car2/", "car2.obj", "car2.mtl", (object) => {
+					object.name = "car2";
+					//object.add(camera);
+					scene.add(object);
+
+					jugadores.push(object);
+
+					isWorldReady[1] = true;
+				});
+
+				loadOBJWithMTL("game_assets/boxes/", "blue_box.obj", "blue_box.mtl", (object) => {
+					object.name = "blue_box";
+					object.position.z = -5;
+
+					scene.add(object);
+				});
+
+				loadOBJWithMTL("game_assets/boxes/", "red_box.obj", "red_box.mtl", (object) => {
+					object.name = "red_box";
+					object.position.x = 5;
+					object.position.z = -5;
+
+					scene.add(object);
+				});
+
+				loadOBJWithMTL("game_assets/boxes/", "green_box.obj", "green_box.mtl", (object) => {
+					object.name = "green_box";
+					object.position.x = -5;
+					object.position.z = -5;
+
+					scene.add(object);
+				});
+
+				loadOBJWithMTL("game_assets/barrier/", "red_barrier.obj", "red_barrier.mtl", (object) => {
+					object.scale.set(3, 3, 3);
+					object.name = "red_barrier";
+					object.position.x = -10;
+					object.position.z = -10;
+
+					scene.add(object);
+				});
+
+				loadOBJWithMTL("game_assets/barrier/", "white_barrier.obj", "white_barrier.mtl", (object) => {
+					object.scale.set(3, 3, 3);
+					object.name = "white_barrier";
+					object.position.x = -10;
+					object.position.z = 10;
+
+					scene.add(object);
+				});
+
+				loadOBJWithMTL("game_assets/bullet/", "bullet.obj", "bullet.mtl", (object) => {
+					object.scale.set(50, 50, 50);
+					object.name = "bullet";
+					object.position.x = -10;
+					object.position.z = 3;
+					object.position.z = 0;
+
+					scene.add(object);
+				});
+
+				loadOBJWithMTL("game_assets/cone/", "cone.obj", "cone.mtl", (object) => {
+					object.scale.set(3, 3, 3);
+					object.name = "cone";
+					object.position.x = 10;
+					object.position.z = 3;
+					//object.position.z = 0;
+					object.rotateX(THREE.Math.degToRad(180));
+
+					scene.add(object);
+				});
+
+				render();
+
+				document.addEventListener('keydown', onKeyDown);
+				document.addEventListener('keyup', onKeyUp);		
+			});
+
+			function loadOBJWithMTL(path, objFile, mtlFile, onLoadCallback) {
+				var mtlLoader = new THREE.MTLLoader();
+				mtlLoader.setPath(path);
+				mtlLoader.load(mtlFile, (materials) => {
+					
+					var objLoader = new THREE.OBJLoader();
+					objLoader.setMaterials(materials);
+					objLoader.setPath(path);
+					objLoader.load(objFile, (object) => {
+						onLoadCallback(object);
+					});
+
+				});
+			}
+
+			function onKeyDown(event) {
+				keys[String.fromCharCode(event.keyCode)] = true;
+			}
+			function onKeyUp(event) {
+				keys[String.fromCharCode(event.keyCode)] = false;
+			}
+
+
+			function render() {
+				requestAnimationFrame(render);
+				deltaTime = clock.getDelta();	
+
+				for (var i = 0; i < jugadores.length; i++) {
+					jugadores[i].yaw = 0;
+					jugadores[i].forward = 0;
+				}
+
+				var yaw = 0;
+				var forward = 0;
+				if (keys["A"]) {
+					jugadores[0].yaw = 5;
+				} else if (keys["D"]) {
+					jugadores[0].yaw = -5;
+				}
+				if (keys["W"]) {
+					jugadores[0].forward = -20;
+				} else if (keys["S"]) {
+					jugadores[0].forward = 20;
+				}
+
+				if (keys["J"]) {
+					jugadores[1].yaw = 5;
+				} else if (keys["L"]) {
+					jugadores[1].yaw = -5;
+				}
+				if (keys["I"]) {
+					jugadores[1].forward = -20;
+				} else if (keys["K"]) {
+					jugadores[1].forward = 20;
+				}
+
+				if (isWorldReady[0] && isWorldReady[1]) {
+
+
+					for (var i = 0; i < jugadores.length; i++) {
+						jugadores[i].rotation.y += jugadores[i].yaw * deltaTime;
+						jugadores[i].translateZ(jugadores[i].forward * deltaTime);
+					}
+
+					/*var carrito = scene.getObjectByName("car1");
+					
+					carrito.rotation.y += yaw * deltaTime;
+					carrito.translateZ(forward * deltaTime);*/
+
+					/*for (var i = 0; i < camera.misRayos.length; i++){
+						var rayo = camera.misRayos[i];
+
+						rayCaster.set(camera.position, rayo);
+
+						var colisiones = rayCaster.intersectObjects(
+							objectsWithCollision,
+							true
+						);
+
+						if (colisiones.length > 0){
+
+							if (colisiones[0].distance < 1) {
+								camera.translateZ(-(forward * deltaTime));
+								console.log("Estamos colisionando!");
+							}
+						}
+					}*/
+				}
+				
+
+				renderer.render(scene, camera);
+			}
+
+			function setupScene() {		
+				var visibleSize = { width: window.innerWidth, height: window.innerHeight};
+				clock = new THREE.Clock();
+				scene = new THREE.Scene();
+				camera = new THREE.PerspectiveCamera(75, visibleSize.width / visibleSize.height, 0.1, 100);
+				camera.position.z = 2;
+				camera.position.y = 3;
+				//camera.position.x = 1;
+
+				renderer = new THREE.WebGLRenderer( {precision: "mediump" } );
+				renderer.setClearColor(new THREE.Color(0, 0, 0));
+				renderer.setPixelRatio(visibleSize.width / visibleSize.height);
+				renderer.setSize(visibleSize.width, visibleSize.height);
+
+				var ambientLight = new THREE.AmbientLight(new THREE.Color(1, 1, 1), 1.0);
+				scene.add(ambientLight);
+
+				var directionalLight = new THREE.DirectionalLight(new THREE.Color(1, 1, 1), 0.4);
+				directionalLight.position.set(0, 0, 1);
+				scene.add(directionalLight);
+
+				var grid = new THREE.GridHelper(50, 10, 0xffffff, 0xffffff);
+				grid.position.y = -1;
+				scene.add(grid);
+
+				$("#scene-section").append(renderer.domElement);
+			}
+		</script>
 	</head>
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -24,16 +275,7 @@
 		</nav>
 
 		<div class="container-fluid text-center">
-			<canvas id="myCanvas" width="1280" height="720" style="border:1px solid #000000;">
-			</canvas>
+			<div id="scene-section"/>
 		</div>
-
-		<!-- Optional JavaScript -->
-	    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	    <script type="text/javascript" src="libs/jquery-3.5.1.min.js"></script>
-	    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-	    <script src="libs/bootstrap/js/bootstrap.min.js"></script>
-
-	    <!--Scripts-->
 	</body>
 </html>
