@@ -33,6 +33,19 @@
 			var scene;
 			var visibleSize;
 
+
+			// Posible uso de variables de jugador
+			var Players = [
+				{
+					health:10,
+					bullets:10
+				}, 
+				{
+					health:10,
+					bullets:10
+				}
+			];
+
 			var cameras = [];
 			var renderers = [];
 
@@ -56,7 +69,7 @@
 
 				setupScene();
 
-				/*camera.misRayos = [
+				/*cameras.misRayos = [
 
 					new THREE.Vector3(0, 0, 2),
 					new THREE.Vector3(0, 0, -2),
@@ -217,11 +230,6 @@
 						jugadores[i].translateZ(jugadores[i].forward * deltaTime);
 					}
 
-					/*var carrito = scene.getObjectByName("car1");
-					
-					carrito.rotation.y += yaw * deltaTime;
-					carrito.translateZ(forward * deltaTime);*/
-
 					/*for (var i = 0; i < camera.misRayos.length; i++){
 						var rayo = camera.misRayos[i];
 
@@ -242,8 +250,6 @@
 					}*/
 				}
 				
-
-				//renderer.render(scene, camera);
 				for (var i = 0; i < renderers.length; i++) {
 					renderers[i].render(scene, cameras[i]);
 				}
@@ -281,16 +287,6 @@
 				createRenderer(new THREE.Color(0, 0, 0));
 				createRenderer(new THREE.Color(0, 0, 0));
 
-				/*camera = new THREE.PerspectiveCamera(75, visibleSize.width / visibleSize.height, 0.1, 100);
-				camera.position.z = 2;
-				camera.position.y = 3;
-				//camera.position.x = 1;
-
-				renderer = new THREE.WebGLRenderer( {precision: "mediump" } );
-				renderer.setClearColor(new THREE.Color(0, 0, 0));
-				renderer.setPixelRatio(visibleSize.width / visibleSize.height);
-				renderer.setSize(visibleSize.width, visibleSize.height);*/
-
 				var ambientLight = new THREE.AmbientLight(new THREE.Color(1, 1, 1), 1.0);
 				scene.add(ambientLight);
 
@@ -302,7 +298,6 @@
 				grid.position.y = -1;
 				scene.add(grid);
 
-				//$("#scene-section").append(renderer.domElement);
 				$("#scene-section").append(renderers[0].domElement);
 				$("#scene-section-2").append(renderers[1].domElement);
 			}
