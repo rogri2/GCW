@@ -19,7 +19,7 @@ window.fbAsyncInit = function() {
   function share() {
     FB.ui({
       method: 'share',
-      href: 'https://google.com',
+      href: 'https://stabcdma.000webhostapp.com/',
       hashtag: '#STABCDMA',
       quote: "Estoy jugando Super Turbo Armored Battle-Cars Duel Mini Arena"
     }, function(response){});
