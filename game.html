@@ -30,6 +30,10 @@
 		<script type="text/javascript" src="libs/three/OBJLoader.js"></script>
 
 		<script type="text/javascript">
+			var requestID;
+
+			var user;
+
 			var scene;
 			var visibleSize;
 
@@ -202,7 +206,7 @@
 
 
 			function render() {
-				requestAnimationFrame(render);
+				requestID = requestAnimationFrame(render);
 				deltaTime = clock.getDelta();	
 
 				for (var i = 0; i < jugadores.length; i++) {
@@ -285,6 +289,7 @@
 
 					if (collision) {
 
+
 						Players[1].health--;
 						console.log("Le pegue al policia");
 
@@ -323,12 +328,25 @@
 				}
 
 				for (let index = 0; index < bulletsP2.length; index++) {
-
 					if (bulletsP2[index].position.x > 50 || bulletsP2[index].position.y > 50 || bulletsP2[index].position.x < -50 || bulletsP2[index].position.y < -50) {
 						scene.remove(bulletsP2[index]);
 					}
-
 				}
+
+				endGame();
+
+				/*if (Players[0].health === 0) {
+					alert("Ganó el jugador 2!");
+					user = prompt("Ingresa tu usuario!", "Usuario");
+					cancelAnimationFrame(requestID);
+					//window.location.replace("index.html");
+				}
+
+				if (Players[1].health === 0) {
+					alert("Ganó el jugador 1!");
+					user = prompt("Ingresa tu usuario!", "Usuario");
+					//window.location.replace("index.html");
+				}*/
 
 			}
 
@@ -407,6 +425,23 @@
 				bulletsP2.push(bulletTmp);
 
 				scene.add(bulletTmp);
+			}
+
+			function endGame() {
+				var aux;
+				if(Players[0].health === 0 || Players[1].health === 0) {
+					cancelAnimationFrame(requestID);
+					if (Players[0].health === 0) {
+						aux = "2";
+					}
+
+					if (Players[1].health === 0) {
+						aux = "1";
+					}
+
+					alert("Ganó el jugador " + aux + "!");
+					user = prompt("Ingresa tu usuario!", "Usuario");
+				}				
 			}
 
 		</script>
