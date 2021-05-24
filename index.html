@@ -11,6 +11,15 @@
 		<link rel="stylesheet" type="text/css" href="css/all.css">
 
 		<title>STABCDMA</title>
+
+		<script type="text/javascript" src="libs/facebook.js"></script>
+		<script type="text/javascript">
+		function shareFB() {
+			var score = $("#txtScore").val();
+			shareScore(score);
+		}
+		</script>
+
 	</head>
 	<body>
 		<div class="container-fluid text-center py-1">
@@ -29,6 +38,10 @@
 			<a href="scoreboard.html" class="m-2">
 				<img src="assets/marcador.png" alt="Marcador" width="20%" height="20%">
 			</a>
+			<br>
+			<br>
+			<button onclick="share();">Compartir en Facebook</button>
+
 		</div>
 		<!-- Optional JavaScript -->
 	    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
