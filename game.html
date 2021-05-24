@@ -228,7 +228,7 @@
 				}
 
 				if (keys["E"]) {
-					shootP1(jugadores[0]);
+					shootP1();
 				}
 
 				if (keys["J"]) {
@@ -243,7 +243,7 @@
 				}
 
 				if (keys["O"]) {
-					shootP2(jugadores[1]);
+					shootP2();
 				}
 
 				if (isWorldReady[0] && isWorldReady[1]) {
@@ -397,30 +397,30 @@
 				$("#scene-section-2").append(renderers[1].domElement);
 			}
 
-			function shootP1(camera) {
+			function shootP1() {
 				var bulletTmp = bullet.clone();
-				bulletTmp.position.x = camera.position.x;
-				bulletTmp.position.y = camera.position.y;
-				bulletTmp.position.z = camera.position.z;
+				bulletTmp.position.x = jugadores[0].position.x;
+				bulletTmp.position.y = jugadores[0].position.y;
+				bulletTmp.position.z = jugadores[0].position.z;
 
-				bulletTmp.rotation.x = camera.rotation.x;
-				bulletTmp.rotation.y = camera.rotation.y;
-				bulletTmp.rotation.z = camera.rotation.z;
+				bulletTmp.rotation.x = jugadores[0].rotation.x;
+				bulletTmp.rotation.y = jugadores[0].rotation.y;
+				bulletTmp.rotation.z = jugadores[0].rotation.z;
 
 				bulletsP1.push(bulletTmp);
 
 				scene.add(bulletTmp);
 			}
 
-			function shootP2(camera) {
+			function shootP2() {
 				var bulletTmp = bullet.clone();
-				bulletTmp.position.x = camera.position.x;
-				bulletTmp.position.y = camera.position.y;
-				bulletTmp.position.z = camera.position.z;
+				bulletTmp.position.x = jugadores[1].position.x;
+				bulletTmp.position.y = jugadores[1].position.y;
+				bulletTmp.position.z = jugadores[1].position.z;
 
-				bulletTmp.rotation.x = camera.rotation.x;
-				bulletTmp.rotation.y = camera.rotation.y;
-				bulletTmp.rotation.z = camera.rotation.z;
+				bulletTmp.rotation.x = jugadores[1].rotation.x;
+				bulletTmp.rotation.y = jugadores[1].rotation.y;
+				bulletTmp.rotation.z = jugadores[1].rotation.z;
 
 				bulletsP2.push(bulletTmp);
 
