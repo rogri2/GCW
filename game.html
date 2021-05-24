@@ -32,8 +32,6 @@
 		<script type="text/javascript">
 			var requestID;
 
-			var user;
-
 			var scene;
 			var visibleSize;
 
@@ -178,7 +176,9 @@
 				render();
 
 				document.addEventListener('keydown', onKeyDown);
-				document.addEventListener('keyup', onKeyUp);		
+				document.addEventListener('keyup', onKeyUp);
+
+				
 			});
 
 			function loadOBJWithMTL(path, objFile, mtlFile, onLoadCallback) {
@@ -440,8 +440,29 @@
 					}
 
 					alert("Ganó el jugador " + aux + "!");
-					user = prompt("Ingresa tu usuario!", "Usuario");
+					var user = prompt("Ingresa tu usuario!", "Usuario");
+
+					Win(user);
 				}				
+			}
+
+			function Win(aux) {
+				var dataToSend = {
+					user: aux,
+				};
+
+				$.ajax({
+					url: "php/webservice.php",
+					async: true,
+					type: 'POST',
+					data: dataToSend,
+					success: function(data) {
+						alert(data);
+					},
+					error: function (x, y, z) {
+						alert("Error en webservice: " + x + y + z);
+					}
+				});
 			}
 
 		</script>
