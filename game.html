@@ -34,7 +34,8 @@
 			var visibleSize;
 
 			var bullet;
-			var bullets = [];
+			var bulletsP1 = [];
+			var bulletsP2 = [];
 
 			var p1Model;
 			var p2Model;
@@ -43,11 +44,11 @@
 			var Players = [
 				{
 					health: 10,
-					bullets: 10
+					//bullets: 10
 				}, 
 				{
 					health: 10,
-					bullets: 10
+					//bullets: 10
 				}
 			];
 
@@ -223,7 +224,7 @@
 				}
 
 				if (keys["E"]) {
-					shoot(jugadores[0]);
+					shootP1(jugadores[0]);
 				}
 
 				if (keys["J"]) {
@@ -238,7 +239,7 @@
 				}
 
 				if (keys["O"]) {
-					shoot(jugadores[1]);
+					shootP2(jugadores[1]);
 				}
 
 				if (isWorldReady[0] && isWorldReady[1]) {
@@ -273,26 +274,58 @@
 					renderers[i].render(scene, cameras[i]);
 				}
 
-				for (var i = 0; i < bullets.length; i++) {
-					bullets[i].translateZ( -1 * ( 10 * deltaTime ) );
+				for (var i = 0; i < bulletsP1.length; i++) {
+					bulletsP1[i].translateZ( -1 * ( 10 * deltaTime ) );
 
-					var firstBB = new THREE.Box3().setFromObject(bullets[i]);
+					var firstBB = new THREE.Box3().setFromObject(bulletsP1[i]);
+
 					var secondBB = new THREE.Box3().setFromObject(jugadores[1]);
 
 					var collision = firstBB.isIntersectionBox(secondBB);
 
 					if (collision) {
-						console.log("Si funciona!!!");
+
 						Players[1].health--;
-						scene.remove(bullets[i]);
+						console.log("Le pegue al policia");
+
+						scene.remove(bulletsP1[i]);
 					}
 
 				}
 
-				for (let index = 0; index < bullets.length; index++) {
+				for (let index = 0; index < bulletsP1.length; index++) {
 
-					if (bullets[index].position.x > 100 || bullets[index].position.y > 100) {
-						scene.remove(bullets[index]);
+					if (bulletsP1[index].position.x > 50 || bulletsP1[index].position.y > 50 || bulletsP1[index].position.x < -50 || bulletsP1[index].position.y < -50) {
+						scene.remove(bulletsP1[index]);
+					}
+
+				}
+
+				//--------------------------------------------------------------------------
+
+				for (var i = 0; i < bulletsP2.length; i++) {
+					bulletsP2[i].translateZ( -1 * ( 10 * deltaTime ) );
+
+					var firstBB = new THREE.Box3().setFromObject(bulletsP2[i]);
+
+					var secondBB = new THREE.Box3().setFromObject(jugadores[0]);
+
+					var collision = firstBB.isIntersectionBox(secondBB);
+
+					if (collision) {
+
+						Players[0].health--;
+						console.log("Le pegue al carrito");
+
+						scene.remove(bulletsP2[i]);
+					}
+
+				}
+
+				for (let index = 0; index < bulletsP2.length; index++) {
+
+					if (bulletsP2[index].position.x > 50 || bulletsP2[index].position.y > 50 || bulletsP2[index].position.x < -50 || bulletsP2[index].position.y < -50) {
+						scene.remove(bulletsP2[index]);
 					}
 
 				}
@@ -346,8 +379,7 @@
 				$("#scene-section-2").append(renderers[1].domElement);
 			}
 
-			function shoot(camera) {
-				debugger;
+			function shootP1(camera) {
 				var bulletTmp = bullet.clone();
 				bulletTmp.position.x = camera.position.x;
 				bulletTmp.position.y = camera.position.y;
@@ -357,10 +389,26 @@
 				bulletTmp.rotation.y = camera.rotation.y;
 				bulletTmp.rotation.z = camera.rotation.z;
 
-				bullets.push(bulletTmp);
+				bulletsP1.push(bulletTmp);
 
 				scene.add(bulletTmp);
 			}
+
+			function shootP2(camera) {
+				var bulletTmp = bullet.clone();
+				bulletTmp.position.x = camera.position.x;
+				bulletTmp.position.y = camera.position.y;
+				bulletTmp.position.z = camera.position.z;
+
+				bulletTmp.rotation.x = camera.rotation.x;
+				bulletTmp.rotation.y = camera.rotation.y;
+				bulletTmp.rotation.z = camera.rotation.z;
+
+				bulletsP2.push(bulletTmp);
+
+				scene.add(bulletTmp);
+			}
+
 		</script>
 	</head>
 	<body>
