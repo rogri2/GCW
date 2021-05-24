@@ -33,6 +33,24 @@
 			var scene;
 			var visibleSize;
 
+			var bullet;
+			var bullets = [];
+
+			var p1Model;
+			var p2Model;
+
+			// Posible uso de variables de jugador
+			var Players = [
+				{
+					health: 10,
+					bullets: 10
+				}, 
+				{
+					health: 10,
+					bullets: 10
+				}
+			];
+
 			var cameras = [];
 			var renderers = [];
 
@@ -56,7 +74,7 @@
 
 				setupScene();
 
-				/*camera.misRayos = [
+				/*cameras.misRayos = [
 
 					new THREE.Vector3(0, 0, 2),
 					new THREE.Vector3(0, 0, -2),
@@ -70,6 +88,7 @@
 					object.add(cameras[0]);
 					scene.add(object);
 
+					p1Model = object;
 					jugadores.push(object);
 
 					isWorldReady[0] = true;
@@ -80,6 +99,7 @@
 					object.add(cameras[1]);
 					scene.add(object);
 
+					p2Model = object;
 					jugadores.push(object);
 
 					isWorldReady[1] = true;
@@ -133,7 +153,10 @@
 					object.position.z = 3;
 					object.position.z = 0;
 
-					scene.add(object);
+					//object.rotation.y = THREE.Math.degToRad(90);
+
+					bullet = object;
+					//scene.add(object);
 				});
 
 				loadOBJWithMTL("game_assets/cone/", "cone.obj", "cone.mtl", (object) => {
@@ -171,6 +194,7 @@
 			function onKeyDown(event) {
 				keys[String.fromCharCode(event.keyCode)] = true;
 			}
+
 			function onKeyUp(event) {
 				keys[String.fromCharCode(event.keyCode)] = false;
 			}
@@ -198,6 +222,10 @@
 					jugadores[0].forward = 20;
 				}
 
+				if (keys["E"]) {
+					shoot(jugadores[0]);
+				}
+
 				if (keys["J"]) {
 					jugadores[1].yaw = 5;
 				} else if (keys["L"]) {
@@ -209,6 +237,10 @@
 					jugadores[1].forward = 20;
 				}
 
+				if (keys["O"]) {
+					shoot(jugadores[1]);
+				}
+
 				if (isWorldReady[0] && isWorldReady[1]) {
 
 
@@ -216,11 +248,6 @@
 						jugadores[i].rotation.y += jugadores[i].yaw * deltaTime;
 						jugadores[i].translateZ(jugadores[i].forward * deltaTime);
 					}
-
-					/*var carrito = scene.getObjectByName("car1");
-					
-					carrito.rotation.y += yaw * deltaTime;
-					carrito.translateZ(forward * deltaTime);*/
 
 					/*for (var i = 0; i < camera.misRayos.length; i++){
 						var rayo = camera.misRayos[i];
@@ -242,11 +269,34 @@
 					}*/
 				}
 				
-
-				//renderer.render(scene, camera);
 				for (var i = 0; i < renderers.length; i++) {
 					renderers[i].render(scene, cameras[i]);
 				}
+
+				for (var i = 0; i < bullets.length; i++) {
+					bullets[i].translateZ( -1 * ( 10 * deltaTime ) );
+
+					var firstBB = new THREE.Box3().setFromObject(bullets[i]);
+					var secondBB = new THREE.Box3().setFromObject(jugadores[1]);
+
+					var collision = firstBB.isIntersectionBox(secondBB);
+
+					if (collision) {
+						console.log("Si funciona!!!");
+						Players[1].health--;
+						scene.remove(bullets[i]);
+					}
+
+				}
+
+				for (let index = 0; index < bullets.length; index++) {
+
+					if (bullets[index].position.x > 100 || bullets[index].position.y > 100) {
+						scene.remove(bullets[index]);
+					}
+
+				}
+
 			}
 
 			function createRenderer(color) {
@@ -281,16 +331,6 @@
 				createRenderer(new THREE.Color(0, 0, 0));
 				createRenderer(new THREE.Color(0, 0, 0));
 
-				/*camera = new THREE.PerspectiveCamera(75, visibleSize.width / visibleSize.height, 0.1, 100);
-				camera.position.z = 2;
-				camera.position.y = 3;
-				//camera.position.x = 1;
-
-				renderer = new THREE.WebGLRenderer( {precision: "mediump" } );
-				renderer.setClearColor(new THREE.Color(0, 0, 0));
-				renderer.setPixelRatio(visibleSize.width / visibleSize.height);
-				renderer.setSize(visibleSize.width, visibleSize.height);*/
-
 				var ambientLight = new THREE.AmbientLight(new THREE.Color(1, 1, 1), 1.0);
 				scene.add(ambientLight);
 
@@ -302,9 +342,24 @@
 				grid.position.y = -1;
 				scene.add(grid);
 
-				//$("#scene-section").append(renderer.domElement);
 				$("#scene-section").append(renderers[0].domElement);
 				$("#scene-section-2").append(renderers[1].domElement);
+			}
+
+			function shoot(camera) {
+				debugger;
+				var bulletTmp = bullet.clone();
+				bulletTmp.position.x = camera.position.x;
+				bulletTmp.position.y = camera.position.y;
+				bulletTmp.position.z = camera.position.z;
+
+				bulletTmp.rotation.x = camera.rotation.x;
+				bulletTmp.rotation.y = camera.rotation.y;
+				bulletTmp.rotation.z = camera.rotation.z;
+
+				bullets.push(bulletTmp);
+
+				scene.add(bulletTmp);
 			}
 		</script>
 	</head>
