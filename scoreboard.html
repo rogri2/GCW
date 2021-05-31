@@ -35,7 +35,6 @@
 						type: 'POST',
 						data: dataToSend,
 						success: function(data) {
-							debugger;
 							var result = JSON.parse(data);
 							result.forEach(function(item) {
 								var ganadores = new Winner(item.Usuario, item.Wins);
