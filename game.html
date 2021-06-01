@@ -30,6 +30,8 @@
 		<script type="text/javascript" src="libs/three/OBJLoader.js"></script>
 
 		<script type="text/javascript">
+			var audio;
+
 			var requestID;
 
 			var scene;
@@ -70,6 +72,10 @@
 			var rayCaster;
 
 			$(document).ready(function() {
+
+				audio = document.getElementById("myAudio");
+
+				leerLS();
 
 				visibleSize = { width: window.innerWidth, height: window.innerHeight };
 
@@ -514,9 +520,26 @@
 				//sceneObjects.push(mesh)
 			}
 
+			function leerLS() {
+				var data = localStorage.getItem("volumen");
+
+				if(data !== null) {
+					var volumen = JSON.parse(data);
+					audio.volume = volumen / 100;
+
+
+				}
+				else {
+					audio.volume = 0.2;
+				}
+			}
 		</script>
 	</head>
 	<body>
+		<audio autoplay loop id="myAudio">
+			<source src="assets/song.mp3">
+			Your browser does not support HTML5 audio.
+		</audio>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<a class="navbar-brand" href="index.html">
 				<img src="assets/Logo2.png" width="10%" height="10%">
@@ -524,6 +547,17 @@
   			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     			<span class="navbar-toggler-icon"></span>
   			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			    <ul class="navbar-nav mr-auto">
+			    	<li class="nav-item">
+			    		<a class="nav-link" href="options.html">Opciones</a>
+			    	</li>
+			    	<li class="nav-item">
+			    		<a class="nav-link" href="scoreboard.html">Marcador</a>
+			    	</li>
+			    </ul>
+			</div>
 
 		</nav>
 
