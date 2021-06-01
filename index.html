@@ -16,6 +16,11 @@
 
 	</head>
 	<body>
+		<audio id="myAudio">
+			<source src="assets/song.mp3">
+			Your browser does not support HTML5 audio.
+		</audio>
+
 		<div class="container-fluid text-center py-1">
 			<!--<h1 class="display-4">Super Turbo Armored Battle Cars Duel Mini Arena</h1>-->
 			<img src="assets/Logo1.png" width="60%" height="60%">
@@ -44,5 +49,9 @@
 	    <script src="libs/bootstrap/js/bootstrap.min.js"></script>
 
 	    <!--Scripts-->
+		<script type="text/javascript">
+			var audio = document.getElementById("myAudio");
+  			audio.volume = 0.2;
+		</script>
 	</body>
 </html>
