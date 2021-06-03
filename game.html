@@ -41,8 +41,6 @@
 			var bulletsP1 = [];
 			var bulletsP2 = [];
 
-			var p1Model;
-			var p2Model;
 
 			// Posible uso de variables de jugador
 			var Players = [
@@ -88,7 +86,6 @@
 					object.add(cameras[0]);
 					scene.add(object);
 
-					p1Model = object;
 					jugadores.push(object);
 					jugadores[0].misRayos = [
 						new THREE.Vector3(0, 0, 2),
@@ -106,7 +103,6 @@
 					object.add(cameras[1]);
 					scene.add(object);
 
-					p2Model = object;
 					jugadores.push(object);
 					jugadores[1].misRayos = [
 						new THREE.Vector3(0, 0, 2),
@@ -318,7 +314,7 @@
 
 					if (collision) {
 
-
+						//debugger;
 						Players[1].health--;
 						console.log("Le pegue al policia");
 
@@ -327,7 +323,7 @@
 
 				}
 
-				for (let index = 0; index < bulletsP1.length; index++) {
+				for (var index = 0; index < bulletsP1.length; index++) {
 
 					if (bulletsP1[index].position.x > 50 || bulletsP1[index].position.y > 50 || bulletsP1[index].position.x < -50 || bulletsP1[index].position.y < -50) {
 						scene.remove(bulletsP1[index]);
@@ -356,7 +352,7 @@
 
 				}
 
-				for (let index = 0; index < bulletsP2.length; index++) {
+				for (var index = 0; index < bulletsP2.length; index++) {
 					if (bulletsP2[index].position.x > 50 || bulletsP2[index].position.y > 50 || bulletsP2[index].position.x < -50 || bulletsP2[index].position.y < -50) {
 						scene.remove(bulletsP2[index]);
 					}
