@@ -90,6 +90,13 @@
 
 					p1Model = object;
 					jugadores.push(object);
+					jugadores[0].misRayos = [
+						new THREE.Vector3(0, 0, 2),
+						new THREE.Vector3(0, 0, -2),
+						new THREE.Vector3(2, 0, 0),
+						new THREE.Vector3(-2, 0, 0)
+					];
+					console.log("Se crearon los rayos!");
 
 					isWorldReady[0] = true;
 				});
@@ -101,6 +108,13 @@
 
 					p2Model = object;
 					jugadores.push(object);
+					jugadores[1].misRayos = [
+						new THREE.Vector3(0, 0, 2),
+						new THREE.Vector3(0, 0, -2),
+						new THREE.Vector3(2, 0, 0),
+						new THREE.Vector3(-2, 0, 0)
+					];
+					console.log("Se crearon los rayos!");
 
 					isWorldReady[1] = true;
 				});
@@ -187,16 +201,6 @@
 
 				addExperimentalCube();
 
-				/*debugger;
-				jugadores.forEach(function (element) {
-					element.misRayos = [
-						new THREE.Vector3(0, 0, 2),
-						new THREE.Vector3(0, 0, -2),
-						new THREE.Vector3(2, 0, 0),
-						new THREE.Vector3(-2, 0, 0)
-					];
-				});*/
-
 				render();
 
 				document.addEventListener('keydown', onKeyDown);
@@ -277,24 +281,26 @@
 						jugadores[i].translateZ(jugadores[i].forward * deltaTime);
 					}
 
-					/*for (var i = 0; i < jugadores[0].misRayos.length; i++){
-						var rayo = jugadores[0].misRayos[i];
+					for (var j = 0; j < jugadores.length; j++) {
+						for (var i = 0; i < jugadores[j].misRayos.length; i++) {
+							var rayo = jugadores[j].misRayos[i];
 
-						rayCaster.set(jugadores[0].position, rayo);
+							rayCaster.set(jugadores[j].position, rayo);
 
-						var colisiones = rayCaster.intersectObjects(
-							objectsWithCollision,
-							true
-						);
+							var colisiones = rayCaster.intersectObjects(
+								objectsWithCollision,
+								true
+							);
 
-						if (colisiones.length > 0){
+							if (colisiones.length > 0) {
 
-							if (colisiones[0].distance < 1) {
-								jugadores[0].translateZ(-(forward * deltaTime));
-								jugadores[0].log("Estamos colisionando!");
+								if (colisiones[0].distance < 1) {
+									jugadores[j].translateZ(-(jugadores[j].forward * deltaTime));
+									console.log("Estamos colisionando!");
+								}
 							}
 						}
-					}*/
+					}
 				}
 				
 				for (var i = 0; i < renderers.length; i++) {
