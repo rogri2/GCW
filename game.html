@@ -187,11 +187,11 @@
 					objectsWithCollision.push(object);
 				});
 
-				loadOBJWithMTL("game_assets/scenario3/", "scenario3.obj", "scenario3.mtl", (object) => {
+				loadOBJWithMTL("game_assets/city/", "city.obj", "city.mtl", (object) => {
 					object.name = "scenario3";
-					object.scale.set(1, 1, 1);
-					object.position.y = -1;
-
+					//object.scale.set(1, 1, 1);
+					//object.position.y = -5;
+					console.log("tapete");
 					scene.add(object);
 				});
 
@@ -209,7 +209,7 @@
 				var mtlLoader = new THREE.MTLLoader();
 				mtlLoader.setPath(path);
 				mtlLoader.load(mtlFile, (materials) => {
-					
+
 					var objLoader = new THREE.OBJLoader();
 					objLoader.setMaterials(materials);
 					objLoader.setPath(path);
@@ -391,8 +391,8 @@
 				createCamera();
 				cameras[1].position.x = 1;
 
-				createRenderer(new THREE.Color(0, 0, 0));
-				createRenderer(new THREE.Color(0, 0, 0));
+				createRenderer(new THREE.Color(0, 0.392, 0.619));
+				createRenderer(new THREE.Color(0, 0.392, 0.619));
 
 				var ambientLight = new THREE.AmbientLight(new THREE.Color(1, 1, 1), 1.0);
 				scene.add(ambientLight);
