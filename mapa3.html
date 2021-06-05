@@ -87,12 +87,6 @@
 					scene.add(object);
 
 					jugadores.push(object);
-					jugadores[0].misRayos = [
-						new THREE.Vector3(0, 0, 2),
-						new THREE.Vector3(0, 0, -2),
-						new THREE.Vector3(2, 0, 0),
-						new THREE.Vector3(-2, 0, 0)
-					];
 					console.log("Se crearon los rayos!");
 
 					isWorldReady[0] = true;
@@ -104,12 +98,6 @@
 					scene.add(object);
 
 					jugadores.push(object);
-					jugadores[1].misRayos = [
-						new THREE.Vector3(0, 0, 2),
-						new THREE.Vector3(0, 0, -2),
-						new THREE.Vector3(2, 0, 0),
-						new THREE.Vector3(-2, 0, 0)
-					];
 					console.log("Se crearon los rayos!");
 
 					isWorldReady[1] = true;
@@ -273,29 +261,23 @@
 
 				if (isWorldReady[0] && isWorldReady[1]) {
 
-
+					// Movimiento de los jugadores
 					for (var i = 0; i < jugadores.length; i++) {
 						jugadores[i].rotation.y += jugadores[i].yaw * deltaTime;
 						jugadores[i].translateZ(jugadores[i].forward * deltaTime);
 					}
 
+					// Colisiones
 					for (var j = 0; j < jugadores.length; j++) {
-						for (var i = 0; i < jugadores[j].misRayos.length; i++) {
-							var rayo = jugadores[j].misRayos[i];
+						for (var i = 0; i < objectsWithCollision.length; i++) {
 
-							rayCaster.set(jugadores[j].position, rayo);
+							var firstBB = new THREE.Box3().setFromObject(objectsWithCollision[i]);
+							var secondBB = new THREE.Box3().setFromObject(jugadores[j]);
+							var collision = secondBB.isIntersectionBox(firstBB);
 
-							var colisiones = rayCaster.intersectObjects(
-								objectsWithCollision,
-								true
-							);
-
-							if (colisiones.length > 0) {
-
-								if (colisiones[0].distance < 1) {
-									jugadores[j].translateZ(-(jugadores[j].forward * deltaTime));
-									console.log("Estamos colisionando!");
-								}
+							if (collision) {
+								jugadores[j].translateZ(-(jugadores[j].forward * deltaTime));
+								console.log("Estamos haciendo colision!");
 							}
 						}
 					}
