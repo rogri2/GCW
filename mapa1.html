@@ -87,12 +87,6 @@
 					scene.add(object);
 
 					jugadores.push(object);
-					jugadores[0].misRayos = [
-						new THREE.Vector3(0, 0, 2),
-						new THREE.Vector3(0, 0, -2),
-						new THREE.Vector3(2, 0, 0),
-						new THREE.Vector3(-2, 0, 0)
-					];
 					console.log("Se crearon los rayos!");
 
 					isWorldReady[0] = true;
@@ -104,12 +98,6 @@
 					scene.add(object);
 
 					jugadores.push(object);
-					jugadores[1].misRayos = [
-						new THREE.Vector3(0, 0, 2),
-						new THREE.Vector3(0, 0, -2),
-						new THREE.Vector3(2, 0, 0),
-						new THREE.Vector3(-2, 0, 0)
-					];
 					console.log("Se crearon los rayos!");
 
 					isWorldReady[1] = true;
@@ -187,12 +175,48 @@
 					objectsWithCollision.push(object);
 				});
 
-				loadOBJWithMTL("game_assets/city/", "city.obj", "city.mtl", (object) => {
+				loadOBJWithMTL("game_assets/city/", "road.obj", "road.mtl", (object) => {
 					object.name = "scenario3";
 					//object.scale.set(1, 1, 1);
 					//object.position.y = -5;
-					console.log("tapete");
+					//console.log("tapete");
 					scene.add(object);
+				});
+
+				loadOBJWithMTL("game_assets/city/", "cuadra1.obj", "cuadra1.mtl", (object) => {
+					object.name = "scenario3";
+					//object.scale.set(1, 1, 1);
+					//object.position.y = -5;
+					//console.log("tapete");
+					scene.add(object);
+					objectsWithCollision.push(object);
+				});
+
+				loadOBJWithMTL("game_assets/city/", "cuadra2.obj", "cuadra2.mtl", (object) => {
+					object.name = "scenario3";
+					//object.scale.set(1, 1, 1);
+					//object.position.y = -5;
+					//console.log("tapete");
+					scene.add(object);
+					objectsWithCollision.push(object);
+				});
+
+				loadOBJWithMTL("game_assets/city/", "cuadra3.obj", "cuadra3.mtl", (object) => {
+					object.name = "scenario3";
+					//object.scale.set(1, 1, 1);
+					//object.position.y = -5;
+					//console.log("tapete");
+					scene.add(object);
+					objectsWithCollision.push(object);
+				});
+
+				loadOBJWithMTL("game_assets/city/", "cuadra4.obj", "cuadra4.mtl", (object) => {
+					object.name = "scenario3";
+					//object.scale.set(1, 1, 1);
+					//object.position.y = -5;
+					//console.log("tapete");
+					scene.add(object);
+					objectsWithCollision.push(object);
 				});
 
 				addExperimentalCube();
@@ -273,29 +297,23 @@
 
 				if (isWorldReady[0] && isWorldReady[1]) {
 
-
+					// Movimiento de los jugadores
 					for (var i = 0; i < jugadores.length; i++) {
 						jugadores[i].rotation.y += jugadores[i].yaw * deltaTime;
 						jugadores[i].translateZ(jugadores[i].forward * deltaTime);
 					}
 
+					// Colisiones
 					for (var j = 0; j < jugadores.length; j++) {
-						for (var i = 0; i < jugadores[j].misRayos.length; i++) {
-							var rayo = jugadores[j].misRayos[i];
+						for (var i = 0; i < objectsWithCollision.length; i++) {
 
-							rayCaster.set(jugadores[j].position, rayo);
+							var firstBB = new THREE.Box3().setFromObject(objectsWithCollision[i]);
+							var secondBB = new THREE.Box3().setFromObject(jugadores[j]);
+							var collision = secondBB.isIntersectionBox(firstBB);
 
-							var colisiones = rayCaster.intersectObjects(
-								objectsWithCollision,
-								true
-							);
-
-							if (colisiones.length > 0) {
-
-								if (colisiones[0].distance < 1) {
-									jugadores[j].translateZ(-(jugadores[j].forward * deltaTime));
-									console.log("Estamos colisionando!");
-								}
+							if (collision) {
+								jugadores[j].translateZ(-(jugadores[j].forward * deltaTime));
+								console.log("Estamos haciendo colision!");
 							}
 						}
 					}
@@ -305,13 +323,13 @@
 					renderers[i].render(scene, cameras[i]);
 				}
 
+				// Balas
+
 				for (var i = 0; i < bulletsP1.length; i++) {
 					bulletsP1[i].translateZ( -1 * ( 10 * deltaTime ) );
 
 					var firstBB = new THREE.Box3().setFromObject(bulletsP1[i]);
-
 					var secondBB = new THREE.Box3().setFromObject(jugadores[1]);
-
 					var collision = firstBB.isIntersectionBox(secondBB);
 
 					if (collision) {
