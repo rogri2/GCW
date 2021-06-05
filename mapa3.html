@@ -273,7 +273,7 @@
 
 							var firstBB = new THREE.Box3().setFromObject(objectsWithCollision[i]);
 							var secondBB = new THREE.Box3().setFromObject(jugadores[j]);
-							var collision = secondBB.isIntersectionBox(firstBB);
+							var collision = secondBB.intersectsBox(firstBB);
 
 							if (collision) {
 								jugadores[j].translateZ(-(jugadores[j].forward * deltaTime));
@@ -294,7 +294,7 @@
 
 					var secondBB = new THREE.Box3().setFromObject(jugadores[1]);
 
-					var collision = firstBB.isIntersectionBox(secondBB);
+					var collision = firstBB.intersectsBox(secondBB);
 
 					if (collision) {
 
@@ -324,7 +324,7 @@
 
 					var secondBB = new THREE.Box3().setFromObject(jugadores[0]);
 
-					var collision = firstBB.isIntersectionBox(secondBB);
+					var collision = firstBB.intersectsBox(secondBB);
 
 					if (collision) {
 
