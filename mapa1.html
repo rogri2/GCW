@@ -65,7 +65,7 @@
 
 			var jugadores = [];
 
-			var isWorldReady = [ false, false ];
+			var isWorldReady = [ false, false, false, false, false, false, false ];
 
 			var rayCaster;
 
@@ -82,6 +82,10 @@
 				setupScene();
 
 				loadOBJWithMTL("game_assets/car1/", "car1.obj", "car1.mtl", (object) => {
+					object.position.x = 43;
+					object.position.z = 43;
+					object.rotateY(THREE.Math.degToRad(90));
+
 					object.name = "car1";
 					object.add(cameras[0]);
 					scene.add(object);
@@ -93,6 +97,10 @@
 				});
 
 				loadOBJWithMTL("game_assets/car2/", "car2.obj", "car2.mtl", (object) => {
+					object.position.x = -43;
+					object.position.z = -43;
+					object.rotateY(THREE.Math.degToRad(-90));
+
 					object.name = "car2";
 					object.add(cameras[1]);
 					scene.add(object);
@@ -101,53 +109,6 @@
 					console.log("Se crearon los rayos!");
 
 					isWorldReady[1] = true;
-				});
-
-				loadOBJWithMTL("game_assets/boxes/", "blue_box.obj", "blue_box.mtl", (object) => {
-					object.name = "blue_box";
-					object.position.z = -5;
-
-					scene.add(object);
-
-					objectsWithCollision.push(object);
-				});
-
-				loadOBJWithMTL("game_assets/boxes/", "red_box.obj", "red_box.mtl", (object) => {
-					object.name = "red_box";
-					object.position.x = 5;
-					object.position.z = -5;
-
-					scene.add(object);
-					objectsWithCollision.push(object);
-				});
-
-				loadOBJWithMTL("game_assets/boxes/", "green_box.obj", "green_box.mtl", (object) => {
-					object.name = "green_box";
-					object.position.x = -5;
-					object.position.z = -5;
-
-					scene.add(object);
-					objectsWithCollision.push(object);
-				});
-
-				loadOBJWithMTL("game_assets/barrier/", "red_barrier.obj", "red_barrier.mtl", (object) => {
-					object.scale.set(3, 3, 3);
-					object.name = "red_barrier";
-					object.position.x = -10;
-					object.position.z = -10;
-
-					scene.add(object);
-					objectsWithCollision.push(object);
-				});
-
-				loadOBJWithMTL("game_assets/barrier/", "white_barrier.obj", "white_barrier.mtl", (object) => {
-					object.scale.set(3, 3, 3);
-					object.name = "white_barrier";
-					object.position.x = -10;
-					object.position.z = 10;
-
-					scene.add(object);
-					objectsWithCollision.push(object);
 				});
 
 				loadOBJWithMTL("game_assets/bullet/", "bullet.obj", "bullet.mtl", (object) => {
@@ -163,24 +124,13 @@
 					//scene.add(object);
 				});
 
-				loadOBJWithMTL("game_assets/cone/", "cone.obj", "cone.mtl", (object) => {
-					object.scale.set(3, 3, 3);
-					object.name = "cone";
-					object.position.x = 10;
-					object.position.z = 3;
-					//object.position.z = 0;
-					object.rotateX(THREE.Math.degToRad(180));
-
-					scene.add(object);
-					objectsWithCollision.push(object);
-				});
-
 				loadOBJWithMTL("game_assets/city/", "road.obj", "road.mtl", (object) => {
 					object.name = "scenario3";
 					//object.scale.set(1, 1, 1);
 					//object.position.y = -5;
 					//console.log("tapete");
 					scene.add(object);
+					isWorldReady[2] = true;
 				});
 
 				loadOBJWithMTL("game_assets/city/", "cuadra1.obj", "cuadra1.mtl", (object) => {
@@ -190,6 +140,7 @@
 					//console.log("tapete");
 					scene.add(object);
 					objectsWithCollision.push(object);
+					isWorldReady[3] = true;
 				});
 
 				loadOBJWithMTL("game_assets/city/", "cuadra2.obj", "cuadra2.mtl", (object) => {
@@ -199,6 +150,7 @@
 					//console.log("tapete");
 					scene.add(object);
 					objectsWithCollision.push(object);
+					isWorldReady[4] = true;
 				});
 
 				loadOBJWithMTL("game_assets/city/", "cuadra3.obj", "cuadra3.mtl", (object) => {
@@ -208,6 +160,7 @@
 					//console.log("tapete");
 					scene.add(object);
 					objectsWithCollision.push(object);
+					isWorldReady[5] = true;
 				});
 
 				loadOBJWithMTL("game_assets/city/", "cuadra4.obj", "cuadra4.mtl", (object) => {
@@ -217,6 +170,7 @@
 					//console.log("tapete");
 					scene.add(object);
 					objectsWithCollision.push(object);
+					isWorldReady[6] = true;
 				});
 
 				addExperimentalCube();
@@ -295,7 +249,7 @@
 					keys["O"] = false;
 				}
 
-				if (isWorldReady[0] && isWorldReady[1]) {
+				if (isWorldReady[0] && isWorldReady[1] && isWorldReady[2] && isWorldReady[3] && isWorldReady[4] && isWorldReady[5] && isWorldReady[6]) {
 
 					// Movimiento de los jugadores
 					for (var i = 0; i < jugadores.length; i++) {
@@ -309,7 +263,7 @@
 
 							var firstBB = new THREE.Box3().setFromObject(objectsWithCollision[i]);
 							var secondBB = new THREE.Box3().setFromObject(jugadores[j]);
-							var collision = secondBB.isIntersectionBox(firstBB);
+							var collision = secondBB.intersectsBox(firstBB);
 
 							if (collision) {
 								jugadores[j].translateZ(-(jugadores[j].forward * deltaTime));
@@ -330,7 +284,7 @@
 
 					var firstBB = new THREE.Box3().setFromObject(bulletsP1[i]);
 					var secondBB = new THREE.Box3().setFromObject(jugadores[1]);
-					var collision = firstBB.isIntersectionBox(secondBB);
+					var collision = firstBB.intersectsBox(secondBB);
 
 					if (collision) {
 
@@ -360,7 +314,7 @@
 
 					var secondBB = new THREE.Box3().setFromObject(jugadores[0]);
 
-					var collision = firstBB.isIntersectionBox(secondBB);
+					var collision = firstBB.intersectsBox(secondBB);
 
 					if (collision) {
 
@@ -377,6 +331,9 @@
 						scene.remove(bulletsP2[index]);
 					}
 				}
+
+				var cubito = scene.getObjectByName("cubito_shader");
+				cubito.rotation.y += THREE.Math.degToRad(100) * deltaTime;
 
 				endGame();
 
@@ -537,7 +494,8 @@
 				});
 
 				let mesh = new THREE.Mesh(geometry, material);
-				mesh.position.y = 10;
+				mesh.name = "cubito_shader";
+				mesh.position.y = 7;
 				scene.add(mesh);
 				//sceneObjects.push(mesh)
 			}
