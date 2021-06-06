@@ -67,7 +67,7 @@
 
 			var isWorldReady = [ false, false, false, false, false, false, false ];
 
-			var rayCaster;
+			var pause = false;
 
 			$(document).ready(function() {
 
@@ -76,8 +76,6 @@
 				leerLS();
 
 				visibleSize = { width: window.innerWidth, height: window.innerHeight };
-
-				rayCaster = new THREE.Raycaster();
 
 				setupScene();
 
@@ -174,8 +172,9 @@
 				});
 
 				addExperimentalCube();
-
+				
 				render();
+				
 
 				document.addEventListener('keydown', onKeyDown);
 				document.addEventListener('keyup', onKeyUp);
@@ -200,10 +199,13 @@
 
 			function onKeyDown(event) {
 				keys[String.fromCharCode(event.keyCode)] = true;
+				if (String.fromCharCode(event.keyCode) == "P") {
+					pause = !pause;
+				}
 			}
 
 			function onKeyUp(event) {
-				keys[String.fromCharCode(event.keyCode)] = false;
+				keys[String.fromCharCode(event.keyCode)] = false;			
 			}
 
 			function render() {
@@ -217,36 +219,38 @@
 
 				var yaw = 0;
 				var forward = 0;
-				if (keys["A"]) {
-					jugadores[0].yaw = 5;
-				} else if (keys["D"]) {
-					jugadores[0].yaw = -5;
-				}
-				if (keys["W"]) {
-					jugadores[0].forward = -20;
-				} else if (keys["S"]) {
-					jugadores[0].forward = 20;
-				}
+				if (!pause) {
+					if (keys["A"]) {
+						jugadores[0].yaw = 5;
+					} else if (keys["D"]) {
+						jugadores[0].yaw = -5;
+					}
+					if (keys["W"]) {
+						jugadores[0].forward = -20;
+					} else if (keys["S"]) {
+						jugadores[0].forward = 20;
+					}
 
-				if (keys["E"]) {
-					shootP1();
-					keys["E"] = false;
-				}
+					if (keys["E"]) {
+						shootP1();
+						keys["E"] = false;
+					}
 
-				if (keys["J"]) {
-					jugadores[1].yaw = 5;
-				} else if (keys["L"]) {
-					jugadores[1].yaw = -5;
-				}
-				if (keys["I"]) {
-					jugadores[1].forward = -20;
-				} else if (keys["K"]) {
-					jugadores[1].forward = 20;
-				}
+					if (keys["J"]) {
+						jugadores[1].yaw = 5;
+					} else if (keys["L"]) {
+						jugadores[1].yaw = -5;
+					}
+					if (keys["I"]) {
+						jugadores[1].forward = -20;
+					} else if (keys["K"]) {
+						jugadores[1].forward = 20;
+					}
 
-				if (keys["O"]) {
-					shootP2();
-					keys["O"] = false;
+					if (keys["O"]) {
+						shootP2();
+						keys["O"] = false;
+					}
 				}
 
 				if (isWorldReady[0] && isWorldReady[1] && isWorldReady[2] && isWorldReady[3] && isWorldReady[4] && isWorldReady[5] && isWorldReady[6]) {
@@ -272,33 +276,22 @@
 						}
 					}
 				}
-				
-				for (var i = 0; i < renderers.length; i++) {
-					renderers[i].render(scene, cameras[i]);
-				}
 
-
-				
 				// Balas
-				for (var i = 0; i < bulletsP1.length; i++) {
-					
-					bulletsP1[i].translateZ( -1 * ( 10 * deltaTime ) );
+				if (!pause) {
+					for (var i = 0; i < bulletsP1.length; i++) {
+						bulletsP1[i].translateZ( -1 * ( 10 * deltaTime ) );
 
+						var firstBB = new THREE.Box3().setFromObject(bulletsP1[i]);
+						var secondBB = new THREE.Box3().setFromObject(jugadores[1]);
+						var collision = firstBB.intersectsBox(secondBB);
 
-					var firstBB = new THREE.Box3().setFromObject(bulletsP1[i]);
-					var secondBB = new THREE.Box3().setFromObject(jugadores[1]);
-				
-					var collision = firstBB.intersectsBox(secondBB);
-
-					if (collision) {
-
-						//debugger;
-						Players[1].health--;
-						console.log("Le pegue al policia");
-
-						scene.remove(bulletsP1[i]);
+						if (collision) {
+							Players[1].health--;
+							console.log("Le pegue al policia");
+							scene.remove(bulletsP1[i]);
+						}
 					}
-
 				}
 				
 				for (var index = 0; index < bulletsP1.length; index++) {
@@ -310,23 +303,20 @@
 				}
 
 				//--------------------------------------------------------------------------
-				for (var i = 0; i < bulletsP2.length; i++) {
-					bulletsP2[i].translateZ( -1 * ( 10 * deltaTime ) );
+				if (!pause) {
+					for (var i = 0; i < bulletsP2.length; i++) {
+						bulletsP2[i].translateZ( -1 * ( 10 * deltaTime ) );
 
-					var firstBB = new THREE.Box3().setFromObject(bulletsP2[i]);
+						var firstBB = new THREE.Box3().setFromObject(bulletsP2[i]);
+						var secondBB = new THREE.Box3().setFromObject(jugadores[0]);
+						var collision = firstBB.intersectsBox(secondBB);
 
-					var secondBB = new THREE.Box3().setFromObject(jugadores[0]);
-
-					var collision = firstBB.intersectsBox(secondBB);
-
-					if (collision) {
-
-						Players[0].health--;
-						console.log("Le pegue al carrito");
-
-						scene.remove(bulletsP2[i]);
+						if (collision) {
+							Players[0].health--;
+							console.log("Le pegue al carrito");
+							scene.remove(bulletsP2[i]);
+						}
 					}
-
 				}
 
 				for (var index = 0; index < bulletsP2.length; index++) {
@@ -336,7 +326,18 @@
 				}
 
 				var cubito = scene.getObjectByName("cubito_shader");
-				cubito.rotation.y += THREE.Math.degToRad(100) * deltaTime;
+				if (!pause) {
+					if (cubito.rotation.y > 360) {
+						cubito.rotation.y = 0;
+					}
+					else {
+						cubito.rotation.y += THREE.Math.degToRad(100) * deltaTime;
+					}
+				}
+
+				for (var i = 0; i < renderers.length; i++) {
+					renderers[i].render(scene, cameras[i]);
+				}
 
 				endGame();
 
@@ -380,10 +381,6 @@
 				var directionalLight = new THREE.DirectionalLight(new THREE.Color(1, 1, 1), 0.4);
 				directionalLight.position.set(0, 0, 5);
 				scene.add(directionalLight);
-
-				/*var grid = new THREE.GridHelper(50, 10, 0xffffff, 0xffffff);
-				grid.position.y = -1;
-				scene.add(grid);*/
 
 				$("#scene-section").append(renderers[0].domElement);
 				$("#scene-section-2").append(renderers[1].domElement);
