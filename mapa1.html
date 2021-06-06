@@ -287,16 +287,13 @@
 						var collision = firstBB.intersectsBox(secondBB);
 
 						if (collision) {
-
 							Players[1].health--;
 							console.log("Le pegue al policia");
-
 							scene.remove(bulletsP1[i]);
 						}
-
 					}
 				}
-
+				
 				for (var index = 0; index < bulletsP1.length; index++) {
 
 					if (bulletsP1[index].position.x > 50 || bulletsP1[index].position.z > 50 || bulletsP1[index].position.x < -50 || bulletsP1[index].position.z < -50) {
@@ -311,19 +308,14 @@
 						bulletsP2[i].translateZ( -1 * ( 10 * deltaTime ) );
 
 						var firstBB = new THREE.Box3().setFromObject(bulletsP2[i]);
-
 						var secondBB = new THREE.Box3().setFromObject(jugadores[0]);
-
 						var collision = firstBB.intersectsBox(secondBB);
 
 						if (collision) {
-
 							Players[0].health--;
 							console.log("Le pegue al carrito");
-
 							scene.remove(bulletsP2[i]);
 						}
-
 					}
 				}
 
