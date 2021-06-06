@@ -81,6 +81,8 @@
 
 				loadOBJWithMTL("game_assets/car1/", "car1.obj", "car1.mtl", (object) => {
 					object.name = "car1";
+					object.position.y=-0.5;
+					object.position.z=20;
 					object.add(cameras[0]);
 					scene.add(object);
 
@@ -92,6 +94,9 @@
 
 				loadOBJWithMTL("game_assets/car2/", "car2.obj", "car2.mtl", (object) => {
 					object.name = "car2";
+					object.rotation.y = THREE.Math.degToRad(180);
+					object.position.y=-0.5;
+					object.position.z=-20;
 					object.add(cameras[1]);
 					scene.add(object);
 
@@ -103,6 +108,7 @@
 
 				loadOBJWithMTL("game_assets/boxes/", "blue_box.obj", "blue_box.mtl", (object) => {
 					object.name = "blue_box";
+					object.position.y=-0.5;
 					object.position.z = -5;
 
 					scene.add(object);
@@ -113,6 +119,7 @@
 				loadOBJWithMTL("game_assets/boxes/", "red_box.obj", "red_box.mtl", (object) => {
 					object.name = "red_box";
 					object.position.x = 5;
+					object.position.y=-0.5;
 					object.position.z = -5;
 
 					scene.add(object);
@@ -122,6 +129,7 @@
 				loadOBJWithMTL("game_assets/boxes/", "green_box.obj", "green_box.mtl", (object) => {
 					object.name = "green_box";
 					object.position.x = -5;
+					object.position.y=-0.5;
 					object.position.z = -5;
 
 					scene.add(object);
@@ -131,20 +139,442 @@
 				loadOBJWithMTL("game_assets/barrier/", "red_barrier.obj", "red_barrier.mtl", (object) => {
 					object.scale.set(3, 3, 3);
 					object.name = "red_barrier";
-					object.position.x = -10;
-					object.position.z = -10;
+					//Barrera Lado
+					var barrera2=object.clone();
+					var barrera3=object.clone();
+					var barrera4=object.clone();
+					var barrera5=object.clone();
+					var barrera6=object.clone();
+					var barrera7=object.clone();
+					var barrera8=object.clone();
+					var barrera9=object.clone();
+					var barrera10=object.clone();
 
-					scene.add(object);
-					objectsWithCollision.push(object);
+					//Barrera otro lado
+					var barrera11=object.clone();
+					var barrera12=object.clone();
+					var barrera13=object.clone();
+					var barrera14=object.clone();
+					var barrera15=object.clone();
+					var barrera16=object.clone();
+					var barrera17=object.clone();
+					var barrera18=object.clone();
+					var barrera19=object.clone();
+
+					//Barrera carro naranja
+					var barrera21=object.clone();
+					var barrera22=object.clone();
+					var barrera23=object.clone();
+					var barrera24=object.clone();
+					var barrera25=object.clone();
+					var barrera26=object.clone();
+					var barrera27=object.clone();
+
+					//barrera policia
+					var barrera28=object.clone();
+					var barrera29=object.clone();
+					var barrera30=object.clone();
+					var barrera31=object.clone();
+					var barrera32=object.clone();
+					var barrera33=object.clone();
+					var barrera34=object.clone();
+
+					//Barrera lado
+					barrera2.rotation.y = THREE.Math.degToRad(90);
+					barrera2.position.x=-19;
+					barrera2.position.y=-0.5;
+					barrera2.position.z=24;
+					barrera3.rotation.y = THREE.Math.degToRad(90);
+					barrera3.position.x=-19;
+					barrera3.position.y=-0.5;
+					barrera3.position.z=18;
+					barrera4.rotation.y = THREE.Math.degToRad(90);
+					barrera4.position.x=-19;
+					barrera4.position.y=-0.5;
+					barrera4.position.z=12;
+					barrera5.rotation.y = THREE.Math.degToRad(90);
+					barrera5.position.x=-19;
+					barrera5.position.y=-0.5;
+					barrera5.position.z=6;
+					barrera6.rotation.y = THREE.Math.degToRad(90);
+					barrera6.position.x=-19;
+					barrera6.position.y=-0.5;
+					barrera6.position.z=0;
+					barrera7.rotation.y = THREE.Math.degToRad(90);
+					barrera7.position.x=-19;
+					barrera7.position.y=-0.5;
+					barrera7.position.z=-6;
+					barrera8.rotation.y = THREE.Math.degToRad(90);
+					barrera8.position.x=-19;
+					barrera8.position.y=-0.5;
+					barrera8.position.z=-12;
+					barrera9.rotation.y = THREE.Math.degToRad(90);
+					barrera9.position.x=-19;
+					barrera9.position.y=-0.5;
+					barrera9.position.z=-18;
+					barrera10.rotation.y = THREE.Math.degToRad(90);
+					barrera10.position.x=-19;
+					barrera10.position.y=-0.5;
+					barrera10.position.z=-24;
+
+					//barrera otro lado
+					barrera11.rotation.y = THREE.Math.degToRad(90);
+					barrera11.position.x=23.5;
+					barrera11.position.y=-0.5;
+					barrera11.position.z=24;
+					barrera12.rotation.y = THREE.Math.degToRad(90);
+					barrera12.position.x=23.5;
+					barrera12.position.y=-0.5;
+					barrera12.position.z=18;
+					barrera13.rotation.y = THREE.Math.degToRad(90);
+					barrera13.position.x=23.5;
+					barrera13.position.y=-0.5;
+					barrera13.position.z=12;
+					barrera14.rotation.y = THREE.Math.degToRad(90);
+					barrera14.position.x=23.5;
+					barrera14.position.y=-0.5;
+					barrera14.position.z=6;
+					barrera15.rotation.y = THREE.Math.degToRad(90);
+					barrera15.position.x=23.5;
+					barrera15.position.y=-0.5;
+					barrera15.position.z=0;
+					barrera16.rotation.y = THREE.Math.degToRad(90);
+					barrera16.position.x=23.5;
+					barrera16.position.y=-0.5;
+					barrera16.position.z=-6;
+					barrera17.rotation.y = THREE.Math.degToRad(90);
+					barrera17.position.x=23.5;
+					barrera17.position.y=-0.5;
+					barrera17.position.z=-12;
+					barrera18.rotation.y = THREE.Math.degToRad(90);
+					barrera18.position.x=23.5;
+					barrera18.position.y=-0.5;
+					barrera18.position.z=-18;
+					barrera19.rotation.y = THREE.Math.degToRad(90);
+					barrera19.position.x=23.5;
+					barrera19.position.y=-0.5;
+					barrera19.position.z=-24;
+
+					//barrera carro naranja
+					barrera21.position.x=22.5;
+					barrera21.position.y=-0.5;
+					barrera21.position.z=27;
+					barrera22.position.x=16.5;
+					barrera22.position.y=-0.5;
+					barrera22.position.z=27;
+					barrera23.position.x=10.5;
+					barrera23.position.y=-0.5;
+					barrera23.position.z=27;
+					barrera24.position.x=4.5;
+					barrera24.position.y=-0.5;
+					barrera24.position.z=27;
+					barrera25.position.x=-1.5;
+					barrera25.position.y=-0.5;
+					barrera25.position.z=27;
+					barrera26.position.x=-7.5;
+					barrera26.position.y=-0.5;
+					barrera26.position.z=27;
+					barrera27.position.x=-13.5;
+					barrera27.position.y=-0.5;
+					barrera27.position.z=27;
+
+					//barrera policia
+					barrera28.position.x=22.5;
+					barrera28.position.y=-0.5;
+					barrera28.position.z=-27;
+					barrera29.position.x=16.5;
+					barrera29.position.y=-0.5;
+					barrera29.position.z=-27;
+					barrera30.position.x=10.5;
+					barrera30.position.y=-0.5;
+					barrera30.position.z=-27;
+					barrera31.position.x=4.5;
+					barrera31.position.y=-0.5;
+					barrera31.position.z=-27;
+					barrera32.position.x=-1.5;
+					barrera32.position.y=-0.5;
+					barrera32.position.z=-27;
+					barrera33.position.x=-7.5;
+					barrera33.position.y=-0.5;
+					barrera33.position.z=-27;
+					barrera34.position.x=-13.5;
+					barrera34.position.y=-0.5;
+					barrera34.position.z=-27;
+					
+					//barrera lado
+					scene.add(barrera2);
+					scene.add(barrera3);
+					scene.add(barrera4);
+					scene.add(barrera5);
+					scene.add(barrera6);
+					scene.add(barrera7);
+					scene.add(barrera8);
+					scene.add(barrera9);
+					scene.add(barrera10);
+
+					//barrera otro lado
+					scene.add(barrera11);
+					scene.add(barrera12);
+					scene.add(barrera13);
+					scene.add(barrera14);
+					scene.add(barrera15);
+					scene.add(barrera16);
+					scene.add(barrera17);
+					scene.add(barrera18);
+					scene.add(barrera19);
+
+					//barrera naranja
+					scene.add(barrera21);
+					scene.add(barrera22);
+					scene.add(barrera23);
+					scene.add(barrera24);
+					scene.add(barrera25);
+					scene.add(barrera26);
+					scene.add(barrera27);
+
+					//barrera policia
+					scene.add(barrera28);
+					scene.add(barrera29);
+					scene.add(barrera30);
+					scene.add(barrera31);
+					scene.add(barrera32);
+					scene.add(barrera33);
+					scene.add(barrera34);
+
+					objectsWithCollision.push(barrera2);
+					objectsWithCollision.push(barrera3);
+					objectsWithCollision.push(barrera4);
+					objectsWithCollision.push(barrera5);
+					objectsWithCollision.push(barrera6);
+					objectsWithCollision.push(barrera7);
+					objectsWithCollision.push(barrera8);
+					objectsWithCollision.push(barrera9);
+					objectsWithCollision.push(barrera10);
+					objectsWithCollision.push(barrera11);
+					objectsWithCollision.push(barrera12);
+					objectsWithCollision.push(barrera13);
+					objectsWithCollision.push(barrera14);
+					objectsWithCollision.push(barrera15);
+					objectsWithCollision.push(barrera16);
+					objectsWithCollision.push(barrera17);
+					objectsWithCollision.push(barrera18);
+					objectsWithCollision.push(barrera19);
+					objectsWithCollision.push(barrera21);
+					objectsWithCollision.push(barrera22);
+					objectsWithCollision.push(barrera23);
+					objectsWithCollision.push(barrera24);
+					objectsWithCollision.push(barrera25);
+					objectsWithCollision.push(barrera26);
+					objectsWithCollision.push(barrera27);
+					objectsWithCollision.push(barrera28);
+					objectsWithCollision.push(barrera29);
+					objectsWithCollision.push(barrera30);
+					objectsWithCollision.push(barrera31);
+					objectsWithCollision.push(barrera32);
+					objectsWithCollision.push(barrera33);
+					objectsWithCollision.push(barrera34);
+
 				});
 
 				loadOBJWithMTL("game_assets/barrier/", "white_barrier.obj", "white_barrier.mtl", (object) => {
 					object.scale.set(3, 3, 3);
 					object.name = "white_barrier";
-					object.position.x = -10;
-					object.position.z = 10;
 
-					scene.add(object);
+					//Barrera Lado
+					var barrera2=object.clone();
+					var barrera3=object.clone();
+					var barrera4=object.clone();
+					var barrera5=object.clone();
+					var barrera6=object.clone();
+					var barrera7=object.clone();
+					var barrera8=object.clone();
+					var barrera9=object.clone();
+					var barrera10=object.clone();
+
+					//Barrera otro lado
+					var barrera11=object.clone();
+					var barrera12=object.clone();
+					var barrera13=object.clone();
+					var barrera14=object.clone();
+					var barrera15=object.clone();
+					var barrera16=object.clone();
+					var barrera17=object.clone();
+					var barrera18=object.clone();
+					var barrera19=object.clone();
+
+					//Barrera carro naranja
+					var barrera21=object.clone();
+					var barrera22=object.clone();
+					var barrera23=object.clone();
+					var barrera24=object.clone();
+					var barrera25=object.clone();
+					var barrera26=object.clone();
+					//barrera policia
+					var barrera27=object.clone();
+					var barrera28=object.clone();
+					var barrera29=object.clone();
+					var barrera30=object.clone();
+					var barrera31=object.clone();
+					var barrera32=object.clone();
+
+					//Barrera lado
+					barrera2.rotation.y = THREE.Math.degToRad(90);
+					barrera2.position.x=-19;
+					barrera2.position.y=-0.5;
+					barrera2.position.z=21;
+					barrera3.rotation.y = THREE.Math.degToRad(90);
+					barrera3.position.x=-19;
+					barrera3.position.y=-0.5;
+					barrera3.position.z=15;
+					barrera4.rotation.y = THREE.Math.degToRad(90);
+					barrera4.position.x=-19;
+					barrera4.position.y=-0.5;
+					barrera4.position.z=9;
+					barrera5.rotation.y = THREE.Math.degToRad(90);
+					barrera5.position.x=-19;
+					barrera5.position.y=-0.5;
+					barrera5.position.z=3;
+					barrera6.rotation.y = THREE.Math.degToRad(90);
+					barrera6.position.x=-19;
+					barrera6.position.y=-0.5;
+					barrera6.position.z=-3;
+					barrera7.rotation.y = THREE.Math.degToRad(90);
+					barrera7.position.x=-19;
+					barrera7.position.y=-0.5;
+					barrera7.position.z=-9;
+					barrera8.rotation.y = THREE.Math.degToRad(90);
+					barrera8.position.x=-19;
+					barrera8.position.y=-0.5;
+					barrera8.position.z=-15;
+					barrera9.rotation.y = THREE.Math.degToRad(90);
+					barrera9.position.x=-19;
+					barrera9.position.y=-0.5;
+					barrera9.position.z=-21;
+					barrera10.rotation.y = THREE.Math.degToRad(90);
+					barrera10.position.x=-19;
+					barrera10.position.y=-0.5;
+					barrera10.position.z=-27;
+
+					//Barrera lado
+					barrera11.rotation.y = THREE.Math.degToRad(90);
+					barrera11.position.x=23.5;
+					barrera11.position.y=-0.5;
+					barrera11.position.z=21;
+					barrera12.rotation.y = THREE.Math.degToRad(90);
+					barrera12.position.x=23.5;
+					barrera12.position.y=-0.5;
+					barrera12.position.z=15;
+					barrera13.rotation.y = THREE.Math.degToRad(90);
+					barrera13.position.x=23.5;
+					barrera13.position.y=-0.5;
+					barrera13.position.z=9;
+					barrera14.rotation.y = THREE.Math.degToRad(90);
+					barrera14.position.x=23.5;
+					barrera14.position.y=-0.5;
+					barrera14.position.z=3;
+					barrera15.rotation.y = THREE.Math.degToRad(90);
+					barrera15.position.x=23.5;
+					barrera15.position.y=-0.5;
+					barrera15.position.z=-3;
+					barrera16.rotation.y = THREE.Math.degToRad(90);
+					barrera16.position.x=23.5;
+					barrera16.position.y=-0.5;
+					barrera16.position.z=-9;
+					barrera17.rotation.y = THREE.Math.degToRad(90);
+					barrera17.position.x=23.5;
+					barrera17.position.y=-0.5;
+					barrera17.position.z=-15;
+					barrera18.rotation.y = THREE.Math.degToRad(90);
+					barrera18.position.x=23.5;
+					barrera18.position.y=-0.5;
+					barrera18.position.z=-21;
+					barrera19.rotation.y = THREE.Math.degToRad(90);
+					barrera19.position.x=23.5;
+					barrera19.position.y=-0.5;
+					barrera19.position.z=-27;
+
+					//barrera carro naranja
+					barrera21.position.x=19.5;
+					barrera21.position.y=-0.5;
+					barrera21.position.z=27;
+					barrera22.position.x=13.5;
+					barrera22.position.y=-0.5;
+					barrera22.position.z=27;
+					barrera23.position.x=7.5;
+					barrera23.position.y=-0.5;
+					barrera23.position.z=27;
+					barrera24.position.x=1.5;
+					barrera24.position.y=-0.5;
+					barrera24.position.z=27;
+					barrera25.position.x=-4.5;
+					barrera25.position.y=-0.5;
+					barrera25.position.z=27;
+					barrera26.position.x=-10.5;
+					barrera26.position.y=-0.5;
+					barrera26.position.z=27;
+
+					//barrera policia
+					barrera27.position.x=19.5;
+					barrera27.position.y=-0.5;
+					barrera27.position.z=-27;
+					barrera28.position.x=13.5;
+					barrera28.position.y=-0.5;
+					barrera28.position.z=-27;
+					barrera29.position.x=7.5;
+					barrera29.position.y=-0.5;
+					barrera29.position.z=-27;
+					barrera30.position.x=1.5;
+					barrera30.position.y=-0.5;
+					barrera30.position.z=-27;
+					barrera31.position.x=-4.5;
+					barrera31.position.y=-0.5;
+					barrera31.position.z=-27;
+					barrera32.position.x=-10.5;
+					barrera32.position.y=-0.5;
+					barrera32.position.z=-27;
+
+					//barrera lado
+					scene.add(barrera2);
+					scene.add(barrera3);
+					scene.add(barrera4);
+					scene.add(barrera5);
+					scene.add(barrera6);
+					scene.add(barrera7);
+					scene.add(barrera8);
+					scene.add(barrera9);
+					scene.add(barrera10);
+
+					//barrera otro lado
+					scene.add(barrera11);
+					scene.add(barrera12);
+					scene.add(barrera13);
+					scene.add(barrera14);
+					scene.add(barrera15);
+					scene.add(barrera16);
+					scene.add(barrera17);
+					scene.add(barrera18);
+					scene.add(barrera19);
+
+					//barrera naranja
+					scene.add(barrera21);
+					scene.add(barrera22);
+					scene.add(barrera23);
+					scene.add(barrera24);
+					scene.add(barrera25);
+					scene.add(barrera26);
+
+					
+
+					//barrera naranja
+					scene.add(barrera27);
+					scene.add(barrera28);
+					scene.add(barrera29);
+					scene.add(barrera30);
+					scene.add(barrera31);
+					scene.add(barrera32);
+
+
+
 					objectsWithCollision.push(object);
 				});
 
