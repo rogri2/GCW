@@ -67,7 +67,7 @@
 
 			var isWorldReady = [ false, false, false, false, false, false, false ];
 
-			var rayCaster;
+			var pause = false;
 
 			$(document).ready(function() {
 
@@ -76,8 +76,6 @@
 				leerLS();
 
 				visibleSize = { width: window.innerWidth, height: window.innerHeight };
-
-				rayCaster = new THREE.Raycaster();
 
 				setupScene();
 
@@ -175,6 +173,10 @@
 
 				addExperimentalCube();
 
+				document.onkeydown = function(event) {
+					
+				}
+				
 				render();
 
 				document.addEventListener('keydown', onKeyDown);
@@ -200,10 +202,29 @@
 
 			function onKeyDown(event) {
 				keys[String.fromCharCode(event.keyCode)] = true;
+				if (String.fromCharCode(event.keyCode) == "P") {
+					pause = !pause;
+					//alert(pause);
+					//alert("Presione la P");
+				}
 			}
 
 			function onKeyUp(event) {
 				keys[String.fromCharCode(event.keyCode)] = false;
+
+				if (String.fromCharCode(event.keyCode) == "P") {
+					if (pause) {
+						//alert("debi hacer pausa");
+						cancelAnimationFrame(requestID);
+						requestID = undefined;
+					}
+					else {
+						if(!requestID) {
+							render();
+						}
+					}
+				}
+				
 			}
 
 			function render() {
