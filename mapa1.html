@@ -293,10 +293,6 @@
 						}
 					}
 				}
-				
-				for (var i = 0; i < renderers.length; i++) {
-					renderers[i].render(scene, cameras[i]);
-				}
 
 				// Balas
 
@@ -355,6 +351,10 @@
 
 				var cubito = scene.getObjectByName("cubito_shader");
 				cubito.rotation.y += THREE.Math.degToRad(100) * deltaTime;
+
+				for (var i = 0; i < renderers.length; i++) {
+					renderers[i].render(scene, cameras[i]);
+				}
 
 				endGame();
 
