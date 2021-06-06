@@ -82,6 +82,7 @@
 				setupScene();
 
 				loadOBJWithMTL("game_assets/car1/", "car1.obj", "car1.mtl", (object) => {
+					object.position.z=43;
 					object.name = "car1";
 					object.add(cameras[0]);
 					scene.add(object);
@@ -93,6 +94,9 @@
 				});
 
 				loadOBJWithMTL("game_assets/car2/", "car2.obj", "car2.mtl", (object) => {
+					object.rotation.y = THREE.Math.degToRad(180);
+					object.position.z=-43;
+
 					object.name = "car2";
 					object.add(cameras[1]);
 					scene.add(object);
@@ -114,8 +118,8 @@
 
 				loadOBJWithMTL("game_assets/boxes/", "red_box.obj", "red_box.mtl", (object) => {
 					object.name = "red_box";
-					object.position.x = 5;
-					object.position.z = -5;
+					object.position.x = 20;
+					
 
 					scene.add(object);
 					objectsWithCollision.push(object);
@@ -123,31 +127,574 @@
 
 				loadOBJWithMTL("game_assets/boxes/", "green_box.obj", "green_box.mtl", (object) => {
 					object.name = "green_box";
-					object.position.x = -5;
-					object.position.z = -5;
+					object.position.x = -20;
 
 					scene.add(object);
 					objectsWithCollision.push(object);
 				});
 
 				loadOBJWithMTL("game_assets/barrier/", "red_barrier.obj", "red_barrier.mtl", (object) => {
+					object.rotation.y = THREE.Math.degToRad(90);
 					object.scale.set(3, 3, 3);
 					object.name = "red_barrier";
-					object.position.x = -10;
-					object.position.z = -10;
+					object.position.x = -26;
+					object.position.z = 1;
 
-					scene.add(object);
-					objectsWithCollision.push(object);
+					//barrera lado
+					var barrera2=object.clone();
+					var barrera3=object.clone();
+					var barrera4=object.clone();
+					var barrera5=object.clone();
+					var barrera6=object.clone();
+					var barrera7=object.clone();
+					var barrera8=object.clone();
+					var barrera9=object.clone();
+					var barrera10=object.clone();
+					var barrera11=object.clone();
+					var barrera12=object.clone();
+					var barrera13=object.clone();
+					var barrera14=object.clone();
+					var barrera15=object.clone();
+					var barrera16=object.clone();
+
+					//barrera otro lado
+					var barrera17=object.clone();
+					var barrera18=object.clone();
+					var barrera19=object.clone();
+					var barrera20=object.clone();
+					var barrera21=object.clone();
+					var barrera22=object.clone();
+					var barrera23=object.clone();
+					var barrera24=object.clone();
+					var barrera25=object.clone();
+					var barrera26=object.clone();
+					var barrera27=object.clone();
+					var barrera28=object.clone();
+					var barrera29=object.clone();
+					var barrera30=object.clone();
+					var barrera31=object.clone();
+
+					//barrera porteria
+					var barrera32=object.clone();
+					var barrera33=object.clone();
+					var barrera34=object.clone();
+					var barrera35=object.clone();
+					var barrera36=object.clone();
+					var barrera37=object.clone();
+					var barrera38=object.clone();
+					var barrera39=object.clone();
+
+					//barrera otra porteria
+					var barrera40=object.clone();
+					var barrera41=object.clone();
+					var barrera42=object.clone();
+					var barrera43=object.clone();
+					var barrera44=object.clone();
+					var barrera45=object.clone();
+					var barrera46=object.clone();
+					var barrera47=object.clone();
+
+
+					//barrera lado
+					barrera2.position.x=-26;
+					barrera2.position.z=41;
+					barrera3.position.x=-26;
+					barrera3.position.z=35;
+					barrera4.position.x=-26;
+					barrera4.position.z=29;
+					barrera5.position.x=-26;
+					barrera5.position.z=23;
+					barrera6.position.x=-26;
+					barrera6.position.z=17;
+					barrera7.position.x=-26;
+					barrera7.position.z=11;
+					barrera8.position.x=-26;
+					barrera8.position.z=5;
+					barrera9.position.x=-26;
+					barrera9.position.z=-1;
+					barrera10.position.x=-26;
+					barrera10.position.z=-7;
+					barrera11.position.x=-26;
+					barrera11.position.z=-13;
+					barrera12.position.x=-26;
+					barrera12.position.z=-19;
+					barrera13.position.x=-26;
+					barrera13.position.z=-25;
+					barrera14.position.x=-26;
+					barrera14.position.z=-31;
+					barrera15.position.x=-26;
+					barrera15.position.z=-37;
+					barrera16.position.x=-26;
+					barrera16.position.z=-43;
+
+					//barrera lado
+					barrera17.position.x=26;
+					barrera17.position.z=41;
+					barrera18.position.x=26;
+					barrera18.position.z=35;
+					barrera19.position.x=26;
+					barrera19.position.z=29;
+					barrera20.position.x=26;
+					barrera20.position.z=23;
+					barrera21.position.x=26;
+					barrera21.position.z=17;
+					barrera22.position.x=26;
+					barrera22.position.z=11;
+					barrera23.position.x=26;
+					barrera23.position.z=5;
+					barrera24.position.x=26;
+					barrera24.position.z=-1;
+					barrera25.position.x=26;
+					barrera25.position.z=-7;
+					barrera26.position.x=26;
+					barrera26.position.z=-13;
+					barrera27.position.x=26;
+					barrera27.position.z=-19;
+					barrera28.position.x=26;
+					barrera28.position.z=-25;
+					barrera29.position.x=26;
+					barrera29.position.z=-31;
+					barrera30.position.x=26;
+					barrera30.position.z=-37;
+					barrera31.position.x=26;
+					barrera31.position.z=-43;
+
+					//barrera porteria
+					barrera32.rotation.y = THREE.Math.degToRad(0);
+					barrera32.position.x=-21;
+					barrera32.position.z=46;
+					barrera33.rotation.y = THREE.Math.degToRad(0);
+					barrera33.position.x=-15;
+					barrera33.position.z=46;
+					barrera34.rotation.y = THREE.Math.degToRad(0);
+					barrera34.position.x=-9;
+					barrera34.position.z=46;
+					barrera35.rotation.y = THREE.Math.degToRad(0);
+					barrera35.position.x=-3;
+					barrera35.position.z=46;
+					barrera36.rotation.y = THREE.Math.degToRad(0);
+					barrera36.position.x=3;
+					barrera36.position.z=46;
+					barrera37.rotation.y = THREE.Math.degToRad(0);
+					barrera37.position.x=9;
+					barrera37.position.z=46;
+					barrera38.rotation.y = THREE.Math.degToRad(0);
+					barrera38.position.x=15;
+					barrera38.position.z=46;
+					barrera39.rotation.y = THREE.Math.degToRad(0);
+					barrera39.position.x=21;
+					barrera39.position.z=46;
+
+					//barrera porteria
+					barrera40.rotation.y = THREE.Math.degToRad(0);
+					barrera40.position.x=-21;
+					barrera40.position.z=-46;
+					barrera41.rotation.y = THREE.Math.degToRad(0);
+					barrera41.position.x=-15;
+					barrera41.position.z=-46;
+					barrera42.rotation.y = THREE.Math.degToRad(0);
+					barrera42.position.x=-9;
+					barrera42.position.z=-46;
+					barrera43.rotation.y = THREE.Math.degToRad(0);
+					barrera43.position.x=-3;
+					barrera43.position.z=-46;
+					barrera44.rotation.y = THREE.Math.degToRad(0);
+					barrera44.position.x=3;
+					barrera44.position.z=-46;
+					barrera45.rotation.y = THREE.Math.degToRad(0);
+					barrera45.position.x=9;
+					barrera45.position.z=-46;
+					barrera46.rotation.y = THREE.Math.degToRad(0);
+					barrera46.position.x=15;
+					barrera46.position.z=-46;
+					barrera47.rotation.y = THREE.Math.degToRad(0);
+					barrera47.position.x=21;
+					barrera47.position.z=-46;
+
+
+					
+					//barrera lado
+					scene.add(barrera2);
+					scene.add(barrera3);
+					scene.add(barrera4);
+					scene.add(barrera5);
+					scene.add(barrera6);
+					scene.add(barrera7);
+					scene.add(barrera8);
+					scene.add(barrera9);
+					scene.add(barrera10);
+					scene.add(barrera11);
+					scene.add(barrera12);
+					scene.add(barrera13);
+					scene.add(barrera14);
+					scene.add(barrera15);
+					scene.add(barrera16);
+
+					//barrera otro lado
+					scene.add(barrera17);
+					scene.add(barrera18);
+					scene.add(barrera19);
+					scene.add(barrera20);
+					scene.add(barrera21);
+					scene.add(barrera22);
+					scene.add(barrera23);
+					scene.add(barrera24);
+					scene.add(barrera25);
+					scene.add(barrera26);
+					scene.add(barrera27);
+					scene.add(barrera28);
+					scene.add(barrera29);
+					scene.add(barrera30);
+					scene.add(barrera31);
+					
+					//barrera porteria
+					scene.add(barrera32);
+					scene.add(barrera33);
+					scene.add(barrera34);
+					scene.add(barrera35);
+					scene.add(barrera36);
+					scene.add(barrera37);
+					scene.add(barrera38);
+					scene.add(barrera39);
+
+					//barrera porteria
+					scene.add(barrera40);
+					scene.add(barrera41);
+					scene.add(barrera42);
+					scene.add(barrera43);
+					scene.add(barrera44);
+					scene.add(barrera45);
+					scene.add(barrera46);
+					scene.add(barrera47);
+
+					//objectsWithCollision.push(barrera2);
+					//objectsWithCollision.push(barrera3);
+					//objectsWithCollision.push(barrera4);
+					//objectsWithCollision.push(barrera5);
+					//objectsWithCollision.push(barrera6);
+					//objectsWithCollision.push(barrera7);
+					//objectsWithCollision.push(barrera8);
+					//objectsWithCollision.push(barrera9);
+					//objectsWithCollision.push(barrera10);
+					//objectsWithCollision.push(barrera11);
+					//objectsWithCollision.push(barrera12);
+					//objectsWithCollision.push(barrera13);
+					//objectsWithCollision.push(barrera14);
+					//objectsWithCollision.push(barrera15);
+					//objectsWithCollision.push(barrera16);
+					//objectsWithCollision.push(barrera17);
+					//objectsWithCollision.push(barrera18);
+					//objectsWithCollision.push(barrera19);
+					//objectsWithCollision.push(barrera20);
+					//objectsWithCollision.push(barrera21);
+					//objectsWithCollision.push(barrera22);
+					//objectsWithCollision.push(barrera23);
+					//objectsWithCollision.push(barrera24);
+					//objectsWithCollision.push(barrera25);
+					//objectsWithCollision.push(barrera26);
+					//objectsWithCollision.push(barrera27);
+					//objectsWithCollision.push(barrera28);
+					//objectsWithCollision.push(barrera29);
+					//objectsWithCollision.push(barrera30);
+					//objectsWithCollision.push(barrera31);
+					//objectsWithCollision.push(barrera32);
+					//objectsWithCollision.push(barrera33);
+					//objectsWithCollision.push(barrera34);
+					//objectsWithCollision.push(barrera35);
+					//objectsWithCollision.push(barrera36);
+					//objectsWithCollision.push(barrera37);
+					//objectsWithCollision.push(barrera38);
+					//objectsWithCollision.push(barrera39);
+					//objectsWithCollision.push(barrera40);
+					//objectsWithCollision.push(barrera41);
+					//objectsWithCollision.push(barrera42);
+					//objectsWithCollision.push(barrera43);
+					//objectsWithCollision.push(barrera44);
+					//objectsWithCollision.push(barrera45);
+					//objectsWithCollision.push(barrera46);
+					//objectsWithCollision.push(barrera47);
+
+
 				});
 
 				loadOBJWithMTL("game_assets/barrier/", "white_barrier.obj", "white_barrier.mtl", (object) => {
+					object.rotation.y = THREE.Math.degToRad(90);
 					object.scale.set(3, 3, 3);
 					object.name = "white_barrier";
-					object.position.x = -10;
-					object.position.z = 10;
+					object.position.x = -26;
+					object.position.z = -2;
+					//barrera lado
+					var barrera2=object.clone();
+					var barrera3=object.clone();
+					var barrera4=object.clone();
+					var barrera5=object.clone();
+					var barrera6=object.clone();
+					var barrera7=object.clone();
+					var barrera8=object.clone();
+					var barrera9=object.clone();
+					var barrera10=object.clone();
+					var barrera11=object.clone();
+					var barrera12=object.clone();
+					var barrera13=object.clone();
+					var barrera14=object.clone();
+					var barrera15=object.clone();
+					var barrera16=object.clone();
 
-					scene.add(object);
-					objectsWithCollision.push(object);
+					//barrera otro lado
+					var barrera17=object.clone();
+					var barrera18=object.clone();
+					var barrera19=object.clone();
+					var barrera20=object.clone();
+					var barrera21=object.clone();
+					var barrera22=object.clone();
+					var barrera23=object.clone();
+					var barrera24=object.clone();
+					var barrera25=object.clone();
+					var barrera26=object.clone();
+					var barrera27=object.clone();
+					var barrera28=object.clone();
+					var barrera29=object.clone();
+					var barrera30=object.clone();
+					var barrera31=object.clone();
+
+					//barrera porteria
+					var barrera32=object.clone();
+					var barrera33=object.clone();
+					var barrera34=object.clone();
+					var barrera35=object.clone();
+					var barrera36=object.clone();
+					var barrera37=object.clone();
+					var barrera38=object.clone();
+					var barrera39=object.clone();
+
+					//barrera otra porteria
+					var barrera40=object.clone();
+					var barrera41=object.clone();
+					var barrera42=object.clone();
+					var barrera43=object.clone();
+					var barrera44=object.clone();
+					var barrera45=object.clone();
+					var barrera46=object.clone();
+					var barrera47=object.clone();
+
+					//barrera lado
+
+					barrera2.position.x=-26;
+					barrera2.position.z=38;
+					barrera3.position.x=-26;
+					barrera3.position.z=32;
+					barrera4.position.x=-26;
+					barrera4.position.z=26;
+					barrera5.position.x=-26;
+					barrera5.position.z=20;
+					barrera6.position.x=-26;
+					barrera6.position.z=14;
+					barrera7.position.x=-26;
+					barrera7.position.z=8;
+					barrera8.position.x=-26;
+					barrera8.position.z=2;
+					barrera9.position.x=-26;
+					barrera9.position.z=-4;
+					barrera10.position.x=-26;
+					barrera10.position.z=-10;
+					barrera11.position.x=-26;
+					barrera11.position.z=-16;
+					barrera12.position.x=-26;
+					barrera12.position.z=-22;
+					barrera13.position.x=-26;
+					barrera13.position.z=-28;
+					barrera14.position.x=-26;
+					barrera14.position.z=-34;
+					barrera15.position.x=-26;
+					barrera15.position.z=-40;
+					barrera16.position.x=-26;
+					barrera16.position.z=-46;
+
+					//barrera otro lado
+					barrera17.position.x=26;
+					barrera17.position.z=38;
+					barrera18.position.x=26;
+					barrera18.position.z=32;
+					barrera19.position.x=26;
+					barrera19.position.z=26;
+					barrera20.position.x=26;
+					barrera20.position.z=20;
+					barrera21.position.x=26;
+					barrera21.position.z=14;
+					barrera22.position.x=26;
+					barrera22.position.z=8;
+					barrera23.position.x=26;
+					barrera23.position.z=2;
+					barrera24.position.x=26;
+					barrera24.position.z=-4;
+					barrera25.position.x=26;
+					barrera25.position.z=-10;
+					barrera26.position.x=26;
+					barrera26.position.z=-16;
+					barrera27.position.x=26;
+					barrera27.position.z=-22;
+					barrera28.position.x=26;
+					barrera28.position.z=-28;
+					barrera29.position.x=26;
+					barrera29.position.z=-34;
+					barrera30.position.x=26;
+					barrera30.position.z=-40;
+					barrera31.position.x=26;
+					barrera31.position.z=-46;
+
+					//barrera porteria
+					barrera32.rotation.y = THREE.Math.degToRad(0);
+					barrera32.position.x=-18;
+					barrera32.position.z=46;
+					barrera33.rotation.y = THREE.Math.degToRad(0);
+					barrera33.position.x=-12;
+					barrera33.position.z=46;
+					barrera34.rotation.y = THREE.Math.degToRad(0);
+					barrera34.position.x=-6
+					barrera34.position.z=46;
+					barrera35.rotation.y = THREE.Math.degToRad(0);
+					barrera35.position.x=0;
+					barrera35.position.z=46;
+					barrera36.rotation.y = THREE.Math.degToRad(0);
+					barrera36.position.x=6;
+					barrera36.position.z=46;
+					barrera37.rotation.y = THREE.Math.degToRad(0);
+					barrera37.position.x=12;
+					barrera37.position.z=46;
+					barrera38.rotation.y = THREE.Math.degToRad(0);
+					barrera38.position.x=18;
+					barrera38.position.z=46;
+					barrera39.rotation.y = THREE.Math.degToRad(0);
+					barrera39.position.x=24;
+					barrera39.position.z=46;
+
+					//barrera otra porteria
+					barrera40.rotation.y = THREE.Math.degToRad(0);
+					barrera40.position.x=-18;
+					barrera40.position.z=-46;
+					barrera41.rotation.y = THREE.Math.degToRad(0);
+					barrera41.position.x=-12;
+					barrera41.position.z=-46;
+					barrera42.rotation.y = THREE.Math.degToRad(0);
+					barrera42.position.x=-6
+					barrera42.position.z=-46;
+					barrera43.rotation.y = THREE.Math.degToRad(0);
+					barrera43.position.x=0;
+					barrera43.position.z=-46;
+					barrera44.rotation.y = THREE.Math.degToRad(0);
+					barrera44.position.x=6;
+					barrera44.position.z=-46;
+					barrera45.rotation.y = THREE.Math.degToRad(0);
+					barrera45.position.x=12;
+					barrera45.position.z=-46;
+					barrera46.rotation.y = THREE.Math.degToRad(0);
+					barrera46.position.x=18;
+					barrera46.position.z=-46;
+					barrera47.rotation.y = THREE.Math.degToRad(0);
+					barrera47.position.x=24;
+					barrera47.position.z=-46;
+
+					//barrera lado
+					scene.add(barrera2);
+					scene.add(barrera3);
+					scene.add(barrera4);
+					scene.add(barrera5);
+					scene.add(barrera6);
+					scene.add(barrera7);
+					scene.add(barrera8);
+					scene.add(barrera9);
+					scene.add(barrera10);
+					scene.add(barrera11);
+					scene.add(barrera12);
+					scene.add(barrera13);
+					scene.add(barrera14);
+					scene.add(barrera15);
+					scene.add(barrera16);
+
+					//barrera otro lado
+					scene.add(barrera17);
+					scene.add(barrera18);
+					scene.add(barrera19);
+					scene.add(barrera20);
+					scene.add(barrera21);
+					scene.add(barrera22);
+					scene.add(barrera23);
+					scene.add(barrera24);
+					scene.add(barrera25);
+					scene.add(barrera26);
+					scene.add(barrera27);
+					scene.add(barrera28);
+					scene.add(barrera29);
+					scene.add(barrera30);
+					scene.add(barrera31);
+
+					//barrera porteria
+					scene.add(barrera32);
+					scene.add(barrera33);
+					scene.add(barrera34);
+					scene.add(barrera35);
+					scene.add(barrera36);
+					scene.add(barrera37);
+					scene.add(barrera38);
+					scene.add(barrera39);
+
+					//barrera porteria
+					scene.add(barrera40);
+					scene.add(barrera41);
+					scene.add(barrera42);
+					scene.add(barrera43);
+					scene.add(barrera44);
+					scene.add(barrera45);
+					scene.add(barrera46);
+					scene.add(barrera47);
+					
+
+					objectsWithCollision.push(barrera2);
+					objectsWithCollision.push(barrera3);
+					objectsWithCollision.push(barrera4);
+					objectsWithCollision.push(barrera5);
+					objectsWithCollision.push(barrera6);
+					objectsWithCollision.push(barrera7);
+					objectsWithCollision.push(barrera8);
+					objectsWithCollision.push(barrera9);
+					objectsWithCollision.push(barrera10);
+					objectsWithCollision.push(barrera11);
+					objectsWithCollision.push(barrera12);
+					objectsWithCollision.push(barrera13);
+					objectsWithCollision.push(barrera14);
+					objectsWithCollision.push(barrera15);
+					objectsWithCollision.push(barrera16);
+					objectsWithCollision.push(barrera17);
+					objectsWithCollision.push(barrera18);
+					objectsWithCollision.push(barrera19);
+					objectsWithCollision.push(barrera20);
+					objectsWithCollision.push(barrera21);
+					objectsWithCollision.push(barrera22);
+					objectsWithCollision.push(barrera23);
+					objectsWithCollision.push(barrera24);
+					objectsWithCollision.push(barrera25);
+					objectsWithCollision.push(barrera26);
+					objectsWithCollision.push(barrera27);
+					objectsWithCollision.push(barrera28);
+					objectsWithCollision.push(barrera29);
+					objectsWithCollision.push(barrera30);
+					objectsWithCollision.push(barrera31);
+					objectsWithCollision.push(barrera32);
+					objectsWithCollision.push(barrera33);
+					objectsWithCollision.push(barrera34);
+					objectsWithCollision.push(barrera35);
+					objectsWithCollision.push(barrera36);
+					objectsWithCollision.push(barrera37);
+					objectsWithCollision.push(barrera38);
+					objectsWithCollision.push(barrera39);
+					objectsWithCollision.push(barrera40);
+					objectsWithCollision.push(barrera41);
+					objectsWithCollision.push(barrera42);
+					objectsWithCollision.push(barrera43);
+					objectsWithCollision.push(barrera44);
+					objectsWithCollision.push(barrera45);
+					objectsWithCollision.push(barrera46);
+					objectsWithCollision.push(barrera47);
 				});
 
 				loadOBJWithMTL("game_assets/bullet/", "bullet.obj", "bullet.mtl", (object) => {
@@ -166,13 +713,29 @@
 				loadOBJWithMTL("game_assets/cone/", "cone.obj", "cone.mtl", (object) => {
 					object.scale.set(3, 3, 3);
 					object.name = "cone";
-					object.position.x = 10;
-					object.position.z = 3;
+					object.position.x = 25;
+					object.position.z = 45.5;
 					//object.position.z = 0;
 					object.rotateX(THREE.Math.degToRad(180));
+					var cone2=object.clone();
+					var cone3=object.clone();
+					var cone4=object.clone();
+
+					cone2.position.x = -25;
+					cone2.position.z = 45.5;
+					cone3.position.x = -25;
+					cone3.position.z = -45.5;
+					cone4.position.x = 25;
+					cone4.position.z = -45.5;
 
 					scene.add(object);
+					scene.add(cone2);
+					scene.add(cone3);
+					scene.add(cone4);
 					objectsWithCollision.push(object);
+					objectsWithCollision.push(cone2);
+					objectsWithCollision.push(cone3);
+					objectsWithCollision.push(cone4);
 				});
 
 				loadOBJWithMTL("game_assets/scenario3/", "scenario3.obj", "scenario3.mtl", (object) => {
@@ -192,6 +755,14 @@
 
 				
 			});
+
+			function checkPosition() {
+				var posXcheck = cameras[0].position.x;
+				var posYcheck = cameras[0].position.y;
+				var posZcheck = cameras[0].position.z;
+			  alert("Posicion X= " + posXcheck + "Posicion Y= " + posYcheck + "Posicion Z= " + posZcheck);
+			}
+
 
 			function loadOBJWithMTL(path, objFile, mtlFile, onLoadCallback) {
 				var mtlLoader = new THREE.MTLLoader();
@@ -259,6 +830,12 @@
 					keys["O"] = false;
 				}
 
+				if (keys["P"]) {
+					checkPosition();
+					keys["P"]=false;
+					debugger					
+				}
+
 				if (isWorldReady[0] && isWorldReady[1]) {
 
 					// Movimiento de los jugadores
@@ -286,6 +863,7 @@
 				for (var i = 0; i < renderers.length; i++) {
 					renderers[i].render(scene, cameras[i]);
 				}
+
 
 				for (var i = 0; i < bulletsP1.length; i++) {
 					bulletsP1[i].translateZ( -1 * ( 10 * deltaTime ) );

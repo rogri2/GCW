@@ -40,6 +40,7 @@
 			var bullet;
 			var bulletsP1 = [];
 			var bulletsP2 = [];
+			var paused = false;
 
 
 			// Posible uso de variables de jugador
@@ -217,6 +218,12 @@
 
 				var yaw = 0;
 				var forward = 0;
+				if(keys["P"]){				
+						paused=!paused;
+				}
+				if(keys["Q"]){				
+						paused=false;
+				}if(!paused){
 				if (keys["A"]) {
 					jugadores[0].yaw = 5;
 				} else if (keys["D"]) {
@@ -248,6 +255,7 @@
 					shootP2();
 					keys["O"] = false;
 				}
+			}
 
 				if (isWorldReady[0] && isWorldReady[1] && isWorldReady[2] && isWorldReady[3] && isWorldReady[4] && isWorldReady[5] && isWorldReady[6]) {
 
@@ -273,17 +281,24 @@
 					}
 				}
 				
+				if(!paused){
 				for (var i = 0; i < renderers.length; i++) {
 					renderers[i].render(scene, cameras[i]);
 				}
+			}
 
+
+				
 				// Balas
-
+				if(!paused){
 				for (var i = 0; i < bulletsP1.length; i++) {
+					
 					bulletsP1[i].translateZ( -1 * ( 10 * deltaTime ) );
+
 
 					var firstBB = new THREE.Box3().setFromObject(bulletsP1[i]);
 					var secondBB = new THREE.Box3().setFromObject(jugadores[1]);
+				
 					var collision = firstBB.intersectsBox(secondBB);
 
 					if (collision) {
@@ -296,7 +311,8 @@
 					}
 
 				}
-
+			}
+				
 				for (var index = 0; index < bulletsP1.length; index++) {
 
 					if (bulletsP1[index].position.x > 50 || bulletsP1[index].position.z > 50 || bulletsP1[index].position.x < -50 || bulletsP1[index].position.z < -50) {
@@ -306,7 +322,7 @@
 				}
 
 				//--------------------------------------------------------------------------
-
+				if(!paused){
 				for (var i = 0; i < bulletsP2.length; i++) {
 					bulletsP2[i].translateZ( -1 * ( 10 * deltaTime ) );
 
@@ -325,6 +341,7 @@
 					}
 
 				}
+			}
 
 				for (var index = 0; index < bulletsP2.length; index++) {
 					if (bulletsP2[index].position.x > 50 || bulletsP2[index].position.z > 50 || bulletsP2[index].position.x < -50 || bulletsP2[index].position.z < -50) {
