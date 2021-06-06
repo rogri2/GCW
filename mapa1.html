@@ -277,13 +277,17 @@
 					renderers[i].render(scene, cameras[i]);
 				}
 
-				// Balas
 
+				
+				// Balas
 				for (var i = 0; i < bulletsP1.length; i++) {
+					
 					bulletsP1[i].translateZ( -1 * ( 10 * deltaTime ) );
+
 
 					var firstBB = new THREE.Box3().setFromObject(bulletsP1[i]);
 					var secondBB = new THREE.Box3().setFromObject(jugadores[1]);
+				
 					var collision = firstBB.intersectsBox(secondBB);
 
 					if (collision) {
@@ -296,7 +300,7 @@
 					}
 
 				}
-
+				
 				for (var index = 0; index < bulletsP1.length; index++) {
 
 					if (bulletsP1[index].position.x > 50 || bulletsP1[index].position.z > 50 || bulletsP1[index].position.x < -50 || bulletsP1[index].position.z < -50) {
@@ -306,7 +310,6 @@
 				}
 
 				//--------------------------------------------------------------------------
-
 				for (var i = 0; i < bulletsP2.length; i++) {
 					bulletsP2[i].translateZ( -1 * ( 10 * deltaTime ) );
 
