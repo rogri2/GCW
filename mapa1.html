@@ -45,11 +45,11 @@
 			// Posible uso de variables de jugador
 			var Players = [
 				{
-					health: 50,
+					health: 10,
 					//bullets: 10
 				}, 
 				{
-					health: 50,
+					health: 10,
 					//bullets: 10
 				}
 			];
@@ -109,7 +109,7 @@
 					isWorldReady[1] = true;
 				});
 
-				loadOBJWithMTL("game_assets/bullet/", "bullet.obj", "bullet.mtl", (object) => {
+				loadOBJWithMTL("game_assets/bullet1/", "bullet1.obj", "bullet1.mtl", (object) => {
 					object.scale.set(50, 50, 50);
 					object.name = "bullet";
 					object.position.x = -10;
@@ -285,7 +285,7 @@
 				// Balas
 				if (!pause) {
 					for (var i = 0; i < bulletsP1.length; i++) {
-						bulletsP1[i].translateZ( -1 * ( 10 * deltaTime ) );
+						bulletsP1[i].translateZ( -1 * ( 100 * deltaTime ) );
 
 						var firstBB = new THREE.Box3().setFromObject(bulletsP1[i]);
 						var secondBB = new THREE.Box3().setFromObject(jugadores[1]);
@@ -310,7 +310,7 @@
 				//--------------------------------------------------------------------------
 				if (!pause) {
 					for (var i = 0; i < bulletsP2.length; i++) {
-						bulletsP2[i].translateZ( -1 * ( 10 * deltaTime ) );
+						bulletsP2[i].translateZ( -1 * ( 100 * deltaTime ) );
 
 						var firstBB = new THREE.Box3().setFromObject(bulletsP2[i]);
 						var secondBB = new THREE.Box3().setFromObject(jugadores[0]);
