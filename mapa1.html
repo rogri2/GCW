@@ -175,6 +175,11 @@
 				
 				render();
 				
+				document.onkeydown = function(event) {
+					if (String.fromCharCode(event.keyCode) == "P") {
+						$("#modal").modal('toggle');
+					}
+				}
 
 				document.addEventListener('keydown', onKeyDown);
 				document.addEventListener('keyup', onKeyUp);
@@ -432,6 +437,7 @@
 					var user = prompt("Ingresa tu usuario!", "Usuario");
 
 					Win(user);
+					window.location.href = 'index.html';
 				}				
 			}
 
@@ -545,5 +551,17 @@
 			<div style="width: 50%;" class="flex-child" id="scene-section"></div>
 			<div style="flex-grow: 1;" class="flex-child" id="scene-section-2"></div>
 		</div>
+
+		<!--PAUSA-->
+		<div class="modal fade" id="modal">
+			<div class="modal-dialog">
+				<div class="model-content">
+					<div class="modal-header justify-content-center">
+						<h1 class="class-title">PAUSA</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</body>
 </html>
